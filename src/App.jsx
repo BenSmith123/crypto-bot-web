@@ -12,7 +12,7 @@ import {
 import { slide as Menu } from 'react-burger-menu';
 
 
-const mobileScreenWidth = 834; // width in px that is mobile
+const mobileScreenWidth = 918; // width in px that is mobile
 
 
 export default function App() {
@@ -63,23 +63,23 @@ export default function App() {
             }}
           >
 
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">Account</Link>
-              </li>
-              <li>
-                <Link to="/about">Crypto assistant (commands)</Link>
-              </li>
-              <li>
-                <Link to="/topics">Changelog</Link>
-              </li>
-              <li>
-                <Link to="/topics" onClick={() => setMenuOpen(false)}>About</Link>
-              </li>
-            </ul>
+
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">Account</Link>
+            </li>
+            <li>
+              <Link to="/about">Crypto assistant (commands)</Link>
+            </li>
+            <li>
+              <Link to="/topics">Changelog</Link>
+            </li>
+            <li>
+              <Link to="/topics" onClick={() => setMenuOpen(false)}>About</Link>
+            </li>
+
           </Menu>
         </div>
 
