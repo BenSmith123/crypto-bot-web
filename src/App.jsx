@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,35 +9,103 @@ import {
 } from 'react-router-dom';
 
 
-export default function App() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/topics">Topics</Link>
-          </li>
-        </ul>
+import { slide as Menu } from 'react-burger-menu';
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+
+const mobileScreenWidth = 834; // width in px that is mobile
+
+
+export default function App() {
+
+  const [isMobile, setIsMobile] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
+  useEffect(() => {
+
+    function handleResize() {
+      if (window.innerWidth < mobileScreenWidth) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    }
+
+    handleResize(); // set isMobile on initial page load
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  return (
+    <div className="pageWrapper">
+
+      {/* show burger menu icon if mobile */}
+      {!isMobile || (
+      <div>
+        {/* eslint-disable-next-line */}
+        <div onClick={() => setMenuOpen(!menuOpen)} className="menu-item--small">Settings</div>
       </div>
-    </Router>
+      )}
+
+
+      <Router>
+        <div className="sideNav">
+          <Menu
+            isOpen={!isMobile || menuOpen}
+            disableOverlayClick={!isMobile}
+            disableCloseOnEsc
+            noOverlay
+            styles={{ display: isMobile ? 'none' : 'hidden' }}
+            onStateChange={({ isOpen }) => {
+              setMenuOpen(isOpen); // ensure state is changed every time the menu is open/closed
+            }}
+          >
+
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">Account</Link>
+              </li>
+              <li>
+                <Link to="/about">Crypto assistant (commands)</Link>
+              </li>
+              <li>
+                <Link to="/topics">Changelog</Link>
+              </li>
+              <li>
+                <Link to="/topics" onClick={() => setMenuOpen(false)}>About</Link>
+              </li>
+            </ul>
+          </Menu>
+        </div>
+
+
+        <div className="pageContent">
+
+          <Switch>
+            <Route path="/about">
+              <p>
+                hello dsd sdf
+              </p>
+              <About />
+            </Route>
+            <Route path="/topics">
+              <Topics />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+
+      </Router>
+
+
+    </div>
   );
 }
 
@@ -54,15 +121,19 @@ function Topics() {
   const match = useRouteMatch();
 
   return (
-    <div>
-      <h2>Topics</h2>
+    <>
+
+      <h2>
+        Topics
+        {' '}
+      </h2>
 
       <ul>
         <li>
-          <Link to={`${match.url}#components`}>Components</Link>
+          <Link to={`${match.url}/components`}>Components</Link>
         </li>
         <li>
-          <Link to={`${match.url}#props-v-state`}>
+          <Link to={`${match.url}/props-v-state`}>
             Props v. State
           </Link>
         </li>
@@ -80,7 +151,7 @@ function Topics() {
           <h3>Please select a topic.</h3>
         </Route>
       </Switch>
-    </div>
+    </>
   );
 }
 
