@@ -10,7 +10,6 @@ export default function Commands() {
 
   return (
     <>
-
       <h1>Crypto assistant</h1>
 
       <img src={image} alt="Crypto assistant icon" />
@@ -24,7 +23,7 @@ export default function Commands() {
       <div className="pageContent-textLeft">
 
         {commands.map((command) => (
-          <>
+          <div className="commandItem">
             <h3>
               /
               {command.name}
@@ -36,26 +35,33 @@ export default function Commands() {
 
             {!command.options || (
             <p>
-              Options:
-              {command.options.map((option) => (
-                <>
+              <b>Options:</b>
+
+              <div className="optionText">
+
+                {command.options.map((option) => (
+
                   <li>
                     {!option.required || (
-                    <div className="Label--small">
+                    <div className="label">
                       required
                     </div>
                     )}
+
                     <code>
-                      {option.name}
+                      <b>{option.name}</b>
+                      :
+                      {' '}
+                      {option.description}
                     </code>
                   </li>
-                </>
-              ))}
+
+                ))}
+              </div>
             </p>
             )}
 
-
-          </>
+          </div>
         ))}
 
       </div>

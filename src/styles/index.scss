@@ -1,8 +1,23 @@
 
 $mobileWidth: 918px;
 
+$textColour: #95a0ac;
+$textTitleColour: #adbac7;
+$textHover: #e1ecf8;
+
+$backgroundColour: black;
+$pageColour: #22272e;
+
+$navBarColour: #263040;
+
+$featureColour: #003c9c;
+
+
+
 body {
   margin: 0;
+  color: $textColour;
+  background: $backgroundColour;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -15,8 +30,24 @@ code {
     monospace;
 }
 
+h1,h2,h3,h4,h5 {
+  color: $textTitleColour;
+}
+
 a {
   text-decoration: none;
+  color: $textColour;
+  display:inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.navLink {
+  padding: 20px;
+}
+
+a:hover {
+  color: $textHover;
 }
 
 ul {
@@ -27,12 +58,13 @@ li {
   list-style: none;
 }
 
-.Label--small {
+.label {
   background: rgb(255, 115, 0);
   color: white;
   display: inline-block;
-  border-radius: 12px;
-  padding: 4px;
+  border-radius: 4px;
+  padding: 2px;
+  margin: 2px 12px 2px 0;
   font-size: small;
 }
 
@@ -55,24 +87,51 @@ img {
 .sideNav {
   min-width: 304px;
   height: 50px;
+  margin-bottom: 50px;
+}
+
+.mobileHeader {
+  z-index: 1000;
+  background: $featureColour;
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  left: 0;
+  top: 0;
+  display: inline-block;
+
+  @media (min-width: $mobileWidth) {
+    display: none;
+  }
 }
 
 .pageContent {
+  background: $pageColour;
   position: relative;
   flex: 1 1 auto;
   right: auto;
   left: auto;
   overflow: hidden;
   text-align: center;
-  margin: 20px;
+  padding: 20px;
 }
 
 .pageContent-textLeft {
   text-align: left;
 }
 
-/* burger menu styles*/
+.commandItem {
+  margin-bottom: 50px;
+}
 
+.optionText {
+  background: #263040;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+
+/* BURGER MENU STYLES */
 
 .bm-overlay {
   background: none !important;
@@ -83,7 +142,6 @@ img {
   overflow: hidden !important;
 }
 
-
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
@@ -91,6 +149,7 @@ img {
   height: 30px;
   left: 36px;
   top: 36px;
+  display: inline-block;
 
   @media (min-width: $mobileWidth) {
     display: none; /* hide button in desktop view */
@@ -99,12 +158,12 @@ img {
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a4756;
+  background: $textColour;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: #a9000059;
+  background: $textHover;
 }
 
 /* Position and sizing of clickable cross button */
@@ -119,7 +178,7 @@ img {
 
 /* Color/shape of close button cross */
 .bm-cross {
-  background: #0099ffbd;
+  background: $textColour;
 }
 
 /*
@@ -128,20 +187,20 @@ Note: Beware of modifying this element as it can break the animations - you shou
 */
 .bm-menu-wrap {
   position: fixed;
+  width: 304px !important;
   height: 100%;
-  transition-duration: 0.3s;
+  transition-duration: 0.2s !important;
 }
 
 /* General sidebar styles */
 .bm-menu {
-  background: #00115f3d;
-  padding: 2.5em 1.5em 0;
+  background: $navBarColour;
   font-size: 1.15em;
 }
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-  fill: #373a471e;
+  fill: #f30000;
 }
 
 /* Wrapper for item list */
@@ -152,7 +211,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Individual item */
 .bm-item {
   display: inline-block;
-  margin: 20px 0 20px 0;
+}
+
+.bm-item:hover {
+  background: $pageColour;
 }
 
 .bm-item:focus-visible{

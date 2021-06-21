@@ -19,12 +19,16 @@ export default function Changelog() {
 
             {!log.changes || log.changes.map((a) => (
               <li>
+                -
+                {' '}
                 {a}
               </li>
             ))}
 
             {!log.devChanges || log.devChanges.map((a) => (
+
               <li>
+                <b>{'- [maintenance] '}</b>
                 {a}
               </li>
             ))}

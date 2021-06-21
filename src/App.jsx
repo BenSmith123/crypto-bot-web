@@ -46,16 +46,18 @@ export default function App() {
     <div className="pageWrapper">
 
       {/* show burger menu icon if mobile */}
-      {!isMobile || (
+      {/* {!isMobile || (
       <div>
-        {/* eslint-disable-next-line */}
-        <div onClick={() => setMenuOpen(!menuOpen)} className="menu-item--small">Settings</div>
+        <div onClick={() => setMenuOpen(!menuOpen)} className="menu-item--small"></div>
       </div>
-      )}
+      )} */}
 
 
       <Router>
+
         <div className="sideNav">
+
+          <div className="mobileHeader" />
           <Menu
             isOpen={!isMobile || menuOpen}
             disableOverlayClick={!isMobile}
@@ -68,19 +70,19 @@ export default function App() {
           >
 
             <li>
-              <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+              <Link to="/" className="navLink" onClick={() => setMenuOpen(false)}>Home</Link>
             </li>
             <li>
-              <Link to="/about" onClick={() => setMenuOpen(false)}>Account</Link>
+              <Link to="/about" className="navLink" onClick={() => setMenuOpen(false)}>Account</Link>
             </li>
             <li>
-              <Link to="/crypto-assistant" onClick={() => setMenuOpen(false)}>Crypto assistant</Link>
+              <Link to="/crypto-assistant" className="navLink" onClick={() => setMenuOpen(false)}>Crypto assistant</Link>
             </li>
             <li>
-              <Link to="/changelog" onClick={() => setMenuOpen(false)}>Changelog</Link>
+              <Link to="/changelog" className="navLink" onClick={() => setMenuOpen(false)}>Changelog</Link>
             </li>
             <li>
-              <Link to="/topics" onClick={() => setMenuOpen(false)}>About</Link>
+              <Link to="/topics" className="navLink" onClick={() => setMenuOpen(false)}>About</Link>
             </li>
 
           </Menu>
