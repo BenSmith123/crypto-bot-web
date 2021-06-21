@@ -11,6 +11,9 @@ import {
 
 import { slide as Menu } from 'react-burger-menu';
 
+import Commands from './views/Commands';
+import Changelog from './views/Changelog';
+
 
 const mobileScreenWidth = 918; // width in px that is mobile
 
@@ -63,18 +66,17 @@ export default function App() {
             }}
           >
 
-
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
             </li>
             <li>
-              <Link to="/about">Account</Link>
+              <Link to="/about" onClick={() => setMenuOpen(false)}>Account</Link>
             </li>
             <li>
-              <Link to="/about">Crypto assistant (commands)</Link>
+              <Link to="/crypto-assistant" onClick={() => setMenuOpen(false)}>Crypto assistant</Link>
             </li>
             <li>
-              <Link to="/topics">Changelog</Link>
+              <Link to="/changelog" onClick={() => setMenuOpen(false)}>Changelog</Link>
             </li>
             <li>
               <Link to="/topics" onClick={() => setMenuOpen(false)}>About</Link>
@@ -87,18 +89,30 @@ export default function App() {
         <div className="pageContent">
 
           <Switch>
+
             <Route path="/about">
               <p>
                 hello dsd sdf
               </p>
               <About />
             </Route>
-            <Route path="/topics">
+
+            <Route path="/crypto-assistant">
+              <Commands />
+            </Route>
+
+            <Route path="/changelog">
+              <Changelog />
+            </Route>
+
+            <Route path="/topic">
               <Topics />
             </Route>
+
             <Route path="/">
               <Home />
             </Route>
+
           </Switch>
         </div>
 
