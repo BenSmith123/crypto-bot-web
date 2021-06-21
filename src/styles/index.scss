@@ -27,6 +27,15 @@ li {
   list-style: none;
 }
 
+.Label--small {
+  background: rgb(255, 115, 0);
+  color: white;
+  display: inline-block;
+  border-radius: 12px;
+  padding: 4px;
+  font-size: small;
+}
+
 .pageWrapper {
   @media (min-width: $mobileWidth) {
     display: flex;

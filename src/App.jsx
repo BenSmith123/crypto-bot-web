@@ -11,6 +11,7 @@ import {
 
 import { slide as Menu } from 'react-burger-menu';
 
+import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
 
@@ -91,10 +92,7 @@ export default function App() {
           <Switch>
 
             <Route path="/about">
-              <p>
-                hello dsd sdf
-              </p>
-              <About />
+              <Account />
             </Route>
 
             <Route path="/crypto-assistant">
@@ -125,10 +123,6 @@ export default function App() {
 
 function Home() {
   return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
 }
 
 function Topics() {
