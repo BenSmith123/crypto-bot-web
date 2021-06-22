@@ -1,0 +1,24 @@
+
+.button {
+  background: rgb(204, 204, 204);
+  border: 1px solid #a5a5a5;
+  color: white;
+  border-radius: 4px;
+  height: fit-content;
+  margin: 12px 0 12px 0;
+  padding: 4px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  &-red {
+	@extend .button;
+	background-color: rgb(255, 73, 73);
+	border: 1px solid #d14848;
+  }
+
+  &-blue {
+	@extend .button;
+	background-color: rgb(0, 132, 255);
+	border: 1px solid #1069a5;
+  }
+}

@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
+import './styles/burger-menu.scss';
+import './styles/account.scss';
+
+
 import App from './App';
 
 ReactDOM.render(

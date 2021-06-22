@@ -69,10 +69,9 @@ export default function Account() {
 
   return (
     <>
-
       <h1>Account</h1>
 
-      <h2>Configuration</h2>
+      <h2>Bot configuration</h2>
 
       <div className="pageContent-textLeft">
 
@@ -80,10 +79,15 @@ export default function Account() {
 
           <CryptoForm />
 
-          <input type="submit" value="Save" />
+          <input
+            type="submit"
+            value="Save"
+            className="button-blue"
+          />
 
           <button
             type="button"
+            className="button-blue"
             onClick={() => {
               append(defaultCurrencyValues);
             }}
@@ -100,7 +104,6 @@ export default function Account() {
           </code>
         </pre>
 
-
       </div>
     </>
   );
@@ -109,10 +112,9 @@ export default function Account() {
   function CryptoForm() {
     return (
 
-
-      <ul>
+      <div>
         {fields.map((item, index) => (
-          <div className="inputItem" key={item.id}>
+          <div className="inputBlock" key={item.id}>
 
             <select
               {...register(`test.${index}.currencyCode`)}
@@ -194,14 +196,14 @@ export default function Account() {
 
             <button
               type="button"
-              className="removeButton"
+              className="button-red"
               onClick={() => remove(index)}
             >
               Remove
             </button>
           </div>
         ))}
-      </ul>
+      </div>
 
 
     );
