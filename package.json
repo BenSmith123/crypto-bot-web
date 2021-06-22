@@ -2,9 +2,11 @@
   "name": "crypto-bot-web",
   "version": "0.0.0",
   "private": true,
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+	"deploy": "react-scripts build && sh scripts/upload.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
