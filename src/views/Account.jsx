@@ -24,12 +24,13 @@ const defaultCurrencyValues = {
   stopLossPercentage: '',
   warningPercentage: '',
 };
-// const availableCurrencies = [
-//   'BTC',
-//   'DOGE',
-//   'ETH',
-//   'SHIB',
-// ];
+
+const availableCurrencies = [
+  'BTC',
+  'DOGE',
+  'ETH',
+  'SHIB',
+];
 
 
 // "DOGE": {
@@ -79,7 +80,7 @@ export default function Account() {
 
           <CryptoForm />
 
-          <input type="submit" />
+          <input type="submit" value="Save" />
 
           <button
             type="button"
@@ -87,7 +88,7 @@ export default function Account() {
               append(defaultCurrencyValues);
             }}
           >
-            Watch new crypto currency
+            Add new crypto currency
           </button>
 
         </form>
@@ -111,48 +112,78 @@ export default function Account() {
 
       <ul>
         {fields.map((item, index) => (
-          <li key={item.id}>
+          <div className="inputItem" key={item.id}>
 
-            <input
-              defaultValue={`${item.currencyCode}`} // make sure to set up defaultValue
-              placeholder="currency code"
+            <select
               {...register(`test.${index}.currencyCode`)}
-            />
+            >
+              {availableCurrencies.map((i) => <option key={i} value={i}>{i}</option>)}
+            </select>
+            <div className="inputDescription">Crypto-currency code</div>
+
 
             <input
               defaultValue={`${item.sellPercentage}`}
               type="number"
-              placeholder="sell percentage"
+              placeholder="Sell percentage"
               {...register(`test.${index}.sellPercentage`)}
             />
+            <div className="inputDescription">
+              The increase that has to be met before selling the crypto-currency
+              back into USDT
+            </div>
+
 
             <input
               defaultValue={`${item.buyPercentage}`}
               type="number"
-              placeholder="buy percentage"
+              placeholder="Buy percentage"
               {...register(`test.${index}.buyPercentage`)}
             />
+            <div className="inputDescription">
+              The decrease that has to be met before buying back into the crypto
+            </div>
 
             <input
               defaultValue={`${item.limitUSDT}`}
               type="number"
-              placeholder="limit USDT"
+              placeholder="Limit USDT"
               {...register(`test.${index}.limitUSDT`)}
             />
+            <div className="inputDescription">
+              <div className="label-blue">optional</div>
+              The amount of USDT to use when trading the given crypto.
+              The limit will be adjusted on every sell transaction to continue trading with
+              additional gains/losses.
+              <br />
+              WARNING: If no amount is specified, all available USDT will be used.
+            </div>
+
 
             <input
               defaultValue={`${item.stopLossPercentage}`}
               type="number"
-              placeholder="stop loss percentage"
+              placeholder="Stop loss percentage"
               {...register(`test.${index}.stopLossPercentage`)}
             />
+            <div className="inputDescription">
+              <div className="label-blue">optional</div>
+              Threshold to sell at a loss. Once met your buy/sell percentages
+              will be adjusted to break-even
+            </div>
+
 
             <input
               defaultValue={`${item.warningPercentage}`}
               type="number"
-              placeholder="warning percentage"
+              placeholder="Warning percentage"
               {...register(`test.${index}.warningPercentage`)}
             />
+            <div className="inputDescription">
+              <div className="label-blue">optional</div>
+              The increase that has to be met before selling the crypto-currency
+              back into USDT
+            </div>
 
             {/* <Controller
               render={({ field }) => <input {...field} />}
@@ -161,10 +192,14 @@ export default function Account() {
               defaultValue={item.lastName}
             /> */}
 
-            <button type="button" onClick={() => remove(index)}>
-              Delete
+            <button
+              type="button"
+              className="removeButton"
+              onClick={() => remove(index)}
+            >
+              Remove
             </button>
-          </li>
+          </div>
         ))}
       </ul>
 
