@@ -113,13 +113,13 @@ export default function Account() {
     return (
 
       <div>
-        {fields.map((item, index) => (
+        {fields.map((item, i) => (
           <div className="inputBlock" key={item.id}>
 
             <select
-              {...register(`test.${index}.currencyCode`)}
+              {...register(`test.${i}.currencyCode`)}
             >
-              {availableCurrencies.map((i) => <option key={i} value={i}>{i}</option>)}
+              {availableCurrencies.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <div className="inputDescription">Crypto-currency code</div>
 
@@ -128,7 +128,7 @@ export default function Account() {
               defaultValue={`${item.sellPercentage}`}
               type="number"
               placeholder="Sell percentage"
-              {...register(`test.${index}.sellPercentage`)}
+              {...register(`test.${i}.sellPercentage`)}
             />
             <div className="inputDescription">
               The increase that has to be met before selling the crypto-currency
@@ -140,7 +140,7 @@ export default function Account() {
               defaultValue={`${item.buyPercentage}`}
               type="number"
               placeholder="Buy percentage"
-              {...register(`test.${index}.buyPercentage`)}
+              {...register(`test.${i}.buyPercentage`)}
             />
             <div className="inputDescription">
               The decrease that has to be met before buying back into the crypto
@@ -150,7 +150,7 @@ export default function Account() {
               defaultValue={`${item.limitUSDT}`}
               type="number"
               placeholder="Limit USDT"
-              {...register(`test.${index}.limitUSDT`)}
+              {...register(`test.${i}.limitUSDT`)}
             />
             <div className="inputDescription">
               <div className="label-blue">optional</div>
@@ -166,7 +166,7 @@ export default function Account() {
               defaultValue={`${item.stopLossPercentage}`}
               type="number"
               placeholder="Stop loss percentage"
-              {...register(`test.${index}.stopLossPercentage`)}
+              {...register(`test.${i}.stopLossPercentage`)}
             />
             <div className="inputDescription">
               <div className="label-blue">optional</div>
@@ -179,7 +179,7 @@ export default function Account() {
               defaultValue={`${item.warningPercentage}`}
               type="number"
               placeholder="Warning percentage"
-              {...register(`test.${index}.warningPercentage`)}
+              {...register(`test.${i}.warningPercentage`)}
             />
             <div className="inputDescription">
               <div className="label-blue">optional</div>
@@ -197,7 +197,7 @@ export default function Account() {
             <button
               type="button"
               className="button-red"
-              onClick={() => remove(index)}
+              onClick={() => remove(i)}
             >
               Remove
             </button>

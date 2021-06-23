@@ -4,13 +4,14 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch,
-  useParams,
 } from 'react-router-dom';
+
+import axios from 'axios';
 
 
 import { slide as Menu } from 'react-burger-menu';
 
+import Topics from './views/Home';
 import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
@@ -24,8 +25,20 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [supportedCrypto, setSupportedCrypto] = useState(null);
 
-  useEffect(() => {
+  async function getInstrumentsFromApi() {
+    const a = await axios('https://api.crypto.com/v2/public/get-instruments');
+
+    const { instruments } = a.data.result;
+
+    return instruments.map((instrument) => instrument.base_currency);
+  }
+
+
+  useEffect(async () => {
+
+    setSupportedCrypto(await getInstrumentsFromApi());
 
     function handleResize() {
       if (window.innerWidth < mobileScreenWidth) {
@@ -40,6 +53,13 @@ export default function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+
+  // close the nav bar (mobile only) and scroll to top of page
+  function navItemSelected() {
+    setMenuOpen(false);
+    window.scrollTo({ top: 0 });
+  }
 
 
   return (
@@ -70,19 +90,19 @@ export default function App() {
           >
 
             <li>
-              <Link to="/" className="navLink" onClick={() => setMenuOpen(false)}>Home</Link>
+              <Link to="/" className="navLink" onClick={() => navItemSelected()}>Home</Link>
             </li>
             <li>
-              <Link to="/about" className="navLink" onClick={() => setMenuOpen(false)}>Account</Link>
+              <Link to="/about" className="navLink" onClick={() => navItemSelected()}>Account</Link>
             </li>
             <li>
-              <Link to="/crypto-assistant" className="navLink" onClick={() => setMenuOpen(false)}>Crypto assistant</Link>
+              <Link to="/crypto-assistant" className="navLink" onClick={() => navItemSelected()}>Crypto assistant</Link>
             </li>
             <li>
-              <Link to="/changelog" className="navLink" onClick={() => setMenuOpen(false)}>Changelog</Link>
+              <Link to="/changelog" className="navLink" onClick={() => navItemSelected()}>Changelog</Link>
             </li>
             <li>
-              <Link to="/topics" className="navLink" onClick={() => setMenuOpen(false)}>About</Link>
+              <Link to="/topics" className="navLink" onClick={() => navItemSelected()}>About</Link>
             </li>
 
           </Menu>
@@ -90,6 +110,9 @@ export default function App() {
 
 
         <div className="pageContent">
+
+          {!supportedCrypto || (<div>{JSON.stringify(supportedCrypto)}</div>)}
+
 
           <Switch>
 
@@ -105,12 +128,9 @@ export default function App() {
               <Changelog />
             </Route>
 
-            <Route path="/topic">
-              <Topics />
-            </Route>
-
             <Route path="/">
-              <Home />
+
+              <Topics />
             </Route>
 
           </Switch>
@@ -123,55 +143,3 @@ export default function App() {
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function Topics() {
-  const match = useRouteMatch();
-
-  return (
-    <>
-
-      <h2>
-        Topics
-        {' '}
-      </h2>
-
-      <ul>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>
-            Props v. State
-          </Link>
-        </li>
-      </ul>
-
-      {/* The Topics page has its own <Switch> with more routes
-          that build on the /topics URL path. You can think of the
-          2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-      <Switch>
-        <Route path={`${match.path}/:topicId`}>
-          <Topic />
-        </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-      </Switch>
-    </>
-  );
-}
-
-function Topic() {
-  const { topicId } = useParams();
-  return (
-    <h3>
-      Requested topic ID:
-      {' '}
-      {topicId}
-    </h3>
-  );
-}
