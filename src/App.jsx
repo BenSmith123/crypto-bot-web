@@ -83,7 +83,6 @@ export default function App() {
       <Router>
 
         <div className="sideNav">
-          <div className="navSpacer" />
 
           <div className="mobileHeader" />
           <Menu
@@ -91,18 +90,22 @@ export default function App() {
             disableOverlayClick={!isMobile}
             disableCloseOnEsc
             noOverlay
+            // noTransition // why doesn't this work
             styles={{ display: isMobile ? 'none' : 'hidden' }}
             onStateChange={({ isOpen }) => {
               setMenuOpen(isOpen); // ensure state is changed every time the menu is open/closed
             }}
           >
 
+            <>
+              <div className="navSpacer" />
+            </>
 
             <li>
               <Link to="/" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineHome className="icon" />
                 <p>Home</p>
-                <AiOutlineRight className="icon" />
+                <AiOutlineRight className="iconArrow" />
               </Link>
             </li>
 
@@ -110,7 +113,7 @@ export default function App() {
               <Link to="/about" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineUser className="icon" />
                 <p>Account</p>
-                <AiOutlineRight className="icon" />
+                <AiOutlineRight className="iconArrow" />
               </Link>
             </li>
 
@@ -118,7 +121,7 @@ export default function App() {
               <Link to="/crypto-assistant" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineSmile className="icon" />
                 <p>Crypto assistant</p>
-                <AiOutlineRight className="icon" />
+                <AiOutlineRight className="iconArrow" />
               </Link>
             </li>
 
@@ -126,7 +129,7 @@ export default function App() {
               <Link to="/changelog" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineMenuUnfold className="icon" />
                 <p>Changelog</p>
-                <AiOutlineRight className="icon" />
+                <AiOutlineRight className="iconArrow" />
               </Link>
             </li>
 
@@ -134,7 +137,7 @@ export default function App() {
               <Link to="/topics" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineInfoCircle className="icon" />
                 <p>About</p>
-                <AiOutlineRight className="icon" />
+                <AiOutlineRight className="iconArrow" />
               </Link>
             </li>
 
