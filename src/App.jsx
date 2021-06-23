@@ -8,8 +8,15 @@ import {
 
 import axios from 'axios';
 
-
 import { slide as Menu } from 'react-burger-menu';
+import {
+  AiOutlineHome,
+  AiOutlineUser,
+  AiOutlineSmile,
+  AiOutlineMenuUnfold,
+  AiOutlineInfoCircle,
+  AiOutlineRight,
+} from 'react-icons/ai';
 
 import Topics from './views/Home';
 import Account from './views/Account';
@@ -76,6 +83,7 @@ export default function App() {
       <Router>
 
         <div className="sideNav">
+          <div className="navSpacer" />
 
           <div className="mobileHeader" />
           <Menu
@@ -89,23 +97,49 @@ export default function App() {
             }}
           >
 
+
             <li>
-              <Link to="/" className="navLink" onClick={() => navItemSelected()}>Home</Link>
+              <Link to="/" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineHome className="icon" />
+                <p>Home</p>
+                <AiOutlineRight className="icon" />
+              </Link>
             </li>
+
             <li>
-              <Link to="/about" className="navLink" onClick={() => navItemSelected()}>Account</Link>
+              <Link to="/about" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineUser className="icon" />
+                <p>Account</p>
+                <AiOutlineRight className="icon" />
+              </Link>
             </li>
+
             <li>
-              <Link to="/crypto-assistant" className="navLink" onClick={() => navItemSelected()}>Crypto assistant</Link>
+              <Link to="/crypto-assistant" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineSmile className="icon" />
+                <p>Crypto assistant</p>
+                <AiOutlineRight className="icon" />
+              </Link>
             </li>
+
             <li>
-              <Link to="/changelog" className="navLink" onClick={() => navItemSelected()}>Changelog</Link>
+              <Link to="/changelog" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineMenuUnfold className="icon" />
+                <p>Changelog</p>
+                <AiOutlineRight className="icon" />
+              </Link>
             </li>
+
             <li>
-              <Link to="/topics" className="navLink" onClick={() => navItemSelected()}>About</Link>
+              <Link to="/topics" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineInfoCircle className="icon" />
+                <p>About</p>
+                <AiOutlineRight className="icon" />
+              </Link>
             </li>
 
           </Menu>
+
         </div>
 
 
