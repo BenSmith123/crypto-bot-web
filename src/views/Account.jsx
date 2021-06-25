@@ -146,6 +146,7 @@ export default function Account() {
               The decrease that has to be met before buying back into the crypto
             </div>
 
+
             <input
               defaultValue={`${item.limitUSDT}`}
               type="number"

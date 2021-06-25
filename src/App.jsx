@@ -6,8 +6,6 @@ import {
   Link,
 } from 'react-router-dom';
 
-import axios from 'axios';
-
 import { slide as Menu } from 'react-burger-menu';
 import {
   AiOutlineHome,
@@ -23,6 +21,8 @@ import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
 
+import { getChangelog } from './api-interface';
+
 
 const mobileScreenWidth = 918; // width in px that is mobile
 
@@ -32,20 +32,12 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [supportedCrypto, setSupportedCrypto] = useState(null);
-
-  async function getInstrumentsFromApi() {
-    const a = await axios('https://api.crypto.com/v2/public/get-instruments');
-
-    const { instruments } = a.data.result;
-
-    return instruments.map((instrument) => instrument.base_currency);
-  }
+  const [changelog, setChangelog] = useState(null);
 
 
   useEffect(async () => {
 
-    setSupportedCrypto(await getInstrumentsFromApi());
+    setChangelog(await getChangelog());
 
     function handleResize() {
       if (window.innerWidth < mobileScreenWidth) {
@@ -148,9 +140,6 @@ export default function App() {
 
         <div className="pageContent">
 
-          {!supportedCrypto || (<div>{JSON.stringify(supportedCrypto)}</div>)}
-
-
           <Switch>
 
             <Route path="/about">
@@ -162,7 +151,7 @@ export default function App() {
             </Route>
 
             <Route path="/changelog">
-              <Changelog />
+              <Changelog changelog={changelog} />
             </Route>
 
             <Route path="/">
