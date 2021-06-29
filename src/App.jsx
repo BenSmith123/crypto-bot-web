@@ -21,7 +21,7 @@ import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
 
-import { getChangelog } from './api-interface';
+import { getChangelog, getCommands } from './api-interface';
 
 
 const mobileScreenWidth = 918; // width in px that is mobile
@@ -32,12 +32,23 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [changelog, setChangelog] = useState(null);
+  const [apiChangelog, setApiChangelog] = useState(null);
+  const [apiCommands, setApiCommands] = useState(null);
 
 
   useEffect(async () => {
 
-    setChangelog(await getChangelog());
+    // stack promises and make all API calls asynchronously
+    const apiPromiseArr = [
+      getChangelog(),
+      getCommands(),
+    ];
+
+    const [changelog, commands] = await Promise.all(apiPromiseArr);
+
+    // load all API data upfront
+    setApiChangelog(changelog);
+    setApiCommands(commands);
 
     function handleResize() {
       if (window.innerWidth < mobileScreenWidth) {
@@ -147,11 +158,11 @@ export default function App() {
             </Route>
 
             <Route path="/crypto-assistant">
-              <Commands />
+              <Commands apiCommands={apiCommands} />
             </Route>
 
             <Route path="/changelog">
-              <Changelog changelog={changelog} />
+              <Changelog apiChangelog={apiChangelog} />
             </Route>
 
             <Route path="/">

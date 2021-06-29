@@ -4,19 +4,19 @@ import React from 'react';
 
 export default function Changelog(props) {
 
-  const { changelog } = props;
+  const { apiChangelog } = props;
 
   return (
     <>
 
       <h1>Changelog</h1>
 
-      { !changelog
+      { !apiChangelog
         ? <div>loading...</div>
         : (
           <div className="pageContent-textLeft">
 
-            {changelog.logs.map((log) => (
+            {apiChangelog.logs.map((log) => (
               <>
                 <h2>{log.version}</h2>
 

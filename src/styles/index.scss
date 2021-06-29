@@ -108,6 +108,10 @@ input {
 	height: fit-content;
 	margin: 12px 0 12px 0;
 	padding: 4px;
+
+	@media (min-width: $mobileWidth) {
+		width: 100%;
+	}
 }
 
 input:focus-visible {
@@ -117,12 +121,16 @@ input:focus-visible {
 }
 
 .inputBlock {
-	display: inline-grid;
+	display: block;
 	grid-template-columns: auto auto;
 	margin: 24px 0 24px 0;
 	padding: 8px;
 	border-radius: 4px;
 	background: #2f333a;
+
+	@media (min-width: $mobileWidth) {
+		display: inline-grid;
+	}
 }
 
 .inputDescription {

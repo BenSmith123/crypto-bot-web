@@ -1,6 +1,6 @@
 
-const axios = require('axios');
-const { DISCORD_API_URL } = require('./environment');
+import axios from 'axios';
+import { DISCORD_API_URL } from './environment';
 
 
 const ENDPOINTS = {
@@ -9,17 +9,28 @@ const ENDPOINTS = {
   listCrypto: 'list-available-crypto',
 };
 
-async function getChangelog() {
 
+async function getChangelog() {
   try {
     const a = await axios(DISCORD_API_URL + ENDPOINTS.changelog);
     return a.data;
   } catch (err) {
     return err.message; // TODO
   }
-
 }
 
-module.exports = {
+
+async function getCommands() {
+  try {
+    const a = await axios(DISCORD_API_URL + ENDPOINTS.commands);
+    return a.data;
+  } catch (err) {
+    return err.message; // TODO
+  }
+}
+
+
+export {
   getChangelog,
+  getCommands,
 };

@@ -1,12 +1,12 @@
 
-
 import React from 'react';
-
-import { commands } from '../data/discordCommands.json';
 
 import image from '../assets/crypto-assistant-icon.jpg';
 
-export default function Commands() {
+
+export default function Commands(props) {
+
+  const { apiCommands } = props;
 
   return (
     <>
@@ -22,47 +22,49 @@ export default function Commands() {
 
       <div className="pageContent-textLeft">
 
-        {commands.map((command) => (
-          <div className="commandItem">
-            <h3>
-              /
-              {command.name}
-            </h3>
+        {!apiCommands
+          ? <div>loading.. </div>
+          : apiCommands.commands.map((command) => (
+            <div className="commandItem">
+              <h3>
+                /
+                {command.name}
+              </h3>
 
-            <p>
-              {command.description}
-            </p>
+              <p>
+                {command.description}
+              </p>
 
-            {!command.options || (
-            <p>
-              <b>Options:</b>
+              {!command.options || (
+              <p>
+                <b>Options:</b>
 
-              <div className="optionText">
+                <div className="optionText">
 
-                {command.options.map((option) => (
+                  {command.options.map((option) => (
 
-                  <li>
-                    {!option.required || (
-                    <div className="label">
-                      required
-                    </div>
-                    )}
+                    <li>
+                      {!option.required || (
+                      <div className="label">
+                        required
+                      </div>
+                      )}
 
-                    <code>
-                      <b>{option.name}</b>
-                      :
-                      {' '}
-                      {option.description}
-                    </code>
-                  </li>
+                      <code>
+                        <b>{option.name}</b>
+                        :
+                        {' '}
+                        {option.description}
+                      </code>
+                    </li>
 
-                ))}
-              </div>
-            </p>
-            )}
+                  ))}
+                </div>
+              </p>
+              )}
 
-          </div>
-        ))}
+            </div>
+          ))}
 
       </div>
     </>
