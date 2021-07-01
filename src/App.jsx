@@ -13,6 +13,7 @@ import {
   AiOutlineSmile,
   AiOutlineMenuUnfold,
   AiOutlineInfoCircle,
+  // AiOutlineLock,
   AiOutlineRight,
 } from 'react-icons/ai';
 
@@ -113,7 +114,7 @@ export default function App() {
             </li>
 
             <li>
-              <Link to="/about" className="navLink" onClick={() => navItemSelected()}>
+              <Link to="/account" className="navLink" onClick={() => navItemSelected()}>
                 <AiOutlineUser className="icon" />
                 <p>Account</p>
                 <AiOutlineRight className="iconArrow" />
@@ -144,6 +145,14 @@ export default function App() {
               </Link>
             </li>
 
+            {/* <li>
+              <Link to="/signin" className="navLink" onClick={() => navItemSelected()}>
+                <AiOutlineLock className="icon" />
+                <p>Sign in</p>
+                <AiOutlineRight className="iconArrow" />
+              </Link>
+            </li> */}
+
           </Menu>
 
         </div>
@@ -153,7 +162,7 @@ export default function App() {
 
           <Switch>
 
-            <Route path="/about">
+            <Route path="/account">
               <Account />
             </Route>
 

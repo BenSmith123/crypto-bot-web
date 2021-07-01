@@ -1,4 +1,3 @@
-https://robinvdvleuten.nl/blog/scroll-a-react-component-into-view/
 
 S3 direct URL: https://s3.ap-southeast-2.amazonaws.com/cryptobot.nz/index.html
 
@@ -14,3 +13,6 @@ AWS certificiate manager: https://console.aws.amazon.com/acm/home?region=us-east
 `npm run deploy`: Does a production react build and then deploys the /build folder to S3
 
 https://csezryhvsa.execute-api.ap-southeast-2.amazonaws.com/prod/commands
+
+
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/migrate-dns-domain-inactive.html#migrate-dns-get-zone-file-domain-inactive
