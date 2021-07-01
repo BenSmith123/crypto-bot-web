@@ -8,6 +8,70 @@ export default function Commands(props) {
 
   const { apiCommands } = props;
 
+  function renderSwitch() {
+
+    if (!apiCommands) {
+      return (
+        <div>Loading...</div>
+      );
+    }
+
+    if (!apiCommands.commands) {
+      return (
+        <div>Error</div>
+      );
+    }
+
+    return (
+      <div className="pageContent-textLeft">
+
+        {apiCommands.commands.map((command) => (
+          <div className="commandItem">
+            <h3>
+              /
+              {command.name}
+            </h3>
+
+            <p>
+              {command.description}
+            </p>
+
+            {command.options && (
+            <p>
+              <b>Options:</b>
+
+              <div className="optionText">
+
+                {command.options.map((option) => (
+
+                  <li>
+                    {option.required && (
+                    <div className="label">
+                      required
+                    </div>
+                    )}
+
+                    <code>
+                      <b>{option.name}</b>
+                      :
+                      {' '}
+                      {option.description}
+                    </code>
+                  </li>
+
+                ))}
+              </div>
+            </p>
+            )}
+
+          </div>
+        ))}
+
+      </div>
+
+    );
+  }
+
   return (
     <>
       <h1>Crypto assistant</h1>
@@ -20,53 +84,8 @@ export default function Commands(props) {
 
       <h2>Commands</h2>
 
-      <div className="pageContent-textLeft">
+      {renderSwitch()}
 
-        {!apiCommands
-          ? <div>loading.. </div>
-          : apiCommands.commands.map((command) => (
-            <div className="commandItem">
-              <h3>
-                /
-                {command.name}
-              </h3>
-
-              <p>
-                {command.description}
-              </p>
-
-              {!command.options || (
-              <p>
-                <b>Options:</b>
-
-                <div className="optionText">
-
-                  {command.options.map((option) => (
-
-                    <li>
-                      {!option.required || (
-                      <div className="label">
-                        required
-                      </div>
-                      )}
-
-                      <code>
-                        <b>{option.name}</b>
-                        :
-                        {' '}
-                        {option.description}
-                      </code>
-                    </li>
-
-                  ))}
-                </div>
-              </p>
-              )}
-
-            </div>
-          ))}
-
-      </div>
     </>
   );
 

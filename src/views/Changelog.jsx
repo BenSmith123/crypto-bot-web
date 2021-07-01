@@ -6,40 +6,56 @@ export default function Changelog(props) {
 
   const { apiChangelog } = props;
 
-  return (
-    <>
+  function renderSwitch() {
 
-      <h1>Changelog</h1>
+    if (!apiChangelog) {
+      return (
+        <div>Loading...</div>
+      );
+    }
 
-      { !apiChangelog
-        ? <div>loading...</div>
-        : (
-          <div className="pageContent-textLeft">
+    if (!apiChangelog.logs) {
+      return (
+        <div>Error</div>
+      );
+    }
 
-            {apiChangelog.logs.map((log) => (
-              <>
-                <h2>{log.version}</h2>
+    return (
 
-                {!log.changes || log.changes.map((a) => (
-                  <li>
-                    -
-                    {' '}
-                    {a}
-                  </li>
-                ))}
+      <div className="pageContent-textLeft">
 
-                {!log.devChanges || log.devChanges.map((a) => (
+        {apiChangelog.logs.map((log) => (
+          <>
+            <h2>{log.version}</h2>
 
-                  <li>
-                    <b>{'- [maintenance] '}</b>
-                    {a}
-                  </li>
-                ))}
-              </>
+            {log.changes && log.changes.map((a) => (
+              <li>
+                -
+                {' '}
+                {a}
+              </li>
             ))}
 
-          </div>
-        )}
+            {log.devChanges && log.devChanges.map((a) => (
+
+              <li>
+                <b>{'- [maintenance] '}</b>
+                {a}
+              </li>
+            ))}
+          </>
+        ))}
+
+      </div>
+    );
+  }
+
+
+  return (
+    <>
+      <h1>Changelog</h1>
+
+      { renderSwitch() }
     </>
   );
 
