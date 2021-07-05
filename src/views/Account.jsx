@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 
-import configuration from '../data/exampleConfiguration.json';
+import ConfigurationContainer from '../components/ConfigurationContainer';
 
 
 const exampleCurrencyValues = {
@@ -32,22 +32,15 @@ const availableCurrencies = [
   'SHIB',
 ];
 
-
-// "DOGE": {
-//   "limitUSDT": 10,
-//   "isHolding": true,
-//   "orderDate": "10/06/2021, 05:00am",
-//   "lastBuyPrice": 0.34533,
-//   "timestamp": 1623258035687,
-// "thresholds": {
-//       "stopLossPercentage": -10,
-//       "sellPercentage": 3,
-//       "buyPercentage": -1
-//   }
-// }
+const PAGES = {
+  configuration: 'configuration',
+  transactions: 'transactions',
+};
 
 
 export default function Account() {
+
+  const [page, setPage] = useState(PAGES.configuration);
 
   const { register, control, handleSubmit } = useForm({
     defaultValues: {
@@ -56,7 +49,6 @@ export default function Account() {
       ],
     },
   });
-
 
   const { fields, append, remove } = useFieldArray(
     {
@@ -71,7 +63,22 @@ export default function Account() {
     <>
       <h1>Account</h1>
 
-      <h2>Bot configuration</h2>
+      {/* <h2>Bot configuration</h2> */}
+
+      <div className="tabButtons">
+        <button type="button" onClick={() => setPage(PAGES.configuration)}>
+          Bot configuration
+        </button>
+        <button type="button" onClick={() => setPage(PAGES.transactions)}>
+          Transactions
+        </button>
+      </div>
+
+      {page === PAGES.configuration ? (
+        <ConfigurationContainer />
+      ) : (
+        <div>transactions</div>
+      )}
 
       <div className="pageContent-textLeft">
 
@@ -79,30 +86,7 @@ export default function Account() {
 
           <CryptoForm />
 
-          <input
-            type="submit"
-            value="Save"
-            className="button-blue"
-          />
-
-          <button
-            type="button"
-            className="button-blue"
-            onClick={() => {
-              append(defaultCurrencyValues);
-            }}
-          >
-            Add new crypto currency
-          </button>
-
         </form>
-
-        <pre>
-          <code>
-            {/* {JSON.stringify(getValues(), null, 4)} */}
-            {JSON.stringify(configuration, null, 4)}
-          </code>
-        </pre>
 
       </div>
     </>
@@ -201,6 +185,22 @@ export default function Account() {
               onClick={() => remove(i)}
             >
               Remove
+            </button>
+
+            <input
+              type="submit"
+              value="Save"
+              className="button-blue"
+            />
+
+            <button
+              type="button"
+              className="button-blue"
+              onClick={() => {
+                append(defaultCurrencyValues);
+              }}
+            >
+              Add new crypto currency
             </button>
           </div>
         ))}

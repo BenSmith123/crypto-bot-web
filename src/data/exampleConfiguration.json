@@ -5,14 +5,38 @@
         "DOGE"
     ],
     "records": {
-        "DOGE": {
-            "limitUSDT": 10,
+        "BTC": {
+            "limitUSDT": 500,
             "isHolding": true,
-            "orderDate": "10/06/2021, 05:00am",
-            "lastBuyPrice": 0.34533,
-            "timestamp": 1623258035687,
+            "orderDate": "1/07/2021, 05:00am",
+            "lastBuyPrice": 35903.40,
+            "timestamp": 1623258149579,
 			"thresholds": {
                 "stopLossPercentage": -10,
+                "sellPercentage": 3,
+                "buyPercentage": -1
+            }
+        },
+		"DOGE": {
+            "limitUSDT": 292,
+            "isHolding": true,
+            "orderDate": "7/07/2021, 1:15pm",
+            "lastBuyPrice": 0.2503,
+            "timestamp": 1623258035687,
+			"thresholds": {
+                "stopLossPercentage": -30,
+                "sellPercentage": 5,
+                "buyPercentage": -5
+            }
+        },
+		"ETH": {
+            "limitUSDT": 174,
+            "isHolding": false,
+            "orderDate": "6/07/2021, 8:45pm",
+            "lastBuyPrice": 2377.07,
+            "timestamp": 1623258125083,
+			"thresholds": {
+                "stopLossPercentage": null,
                 "sellPercentage": 3,
                 "buyPercentage": -1
             }
