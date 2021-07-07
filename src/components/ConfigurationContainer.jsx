@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import Collapsible from 'react-collapsible';
 
 import config from '../data/exampleConfiguration.json';
 
@@ -23,7 +23,15 @@ function renderContent() {
 
       <ul className="cryptoItemsContainer">
         {Object.keys(config.records).map((record) => (
-          <CryptoItem recordName={record} />
+          <Collapsible
+            trigger={<CryptoItem recordName={record} />}
+            transitionTime={200}
+
+          >
+
+            <div className="editCrypto">hello</div>
+
+          </Collapsible>
         ))}
       </ul>
 
