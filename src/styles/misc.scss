@@ -1,0 +1,22 @@
+/**
+ * Miscellaneous styles for smaller pages/components, each should still be
+ * encapsulated in their own component parent class name
+ */
+
+ @import "variables.scss";
+
+ .changelogPage {
+
+	h2 {
+		margin-bottom: 8px;
+	}
+
+	li {
+		line-height: 1.6;
+	}
+
+	.devLog {
+		color: $textMinorColour;
+	}
+
+ }

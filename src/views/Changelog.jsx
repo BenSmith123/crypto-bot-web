@@ -22,7 +22,7 @@ export default function Changelog(props) {
 
     return (
 
-      <div className="pageContent-textLeft">
+      <div className="pageContent-textLeft changelogPage">
 
         {apiChangelog.logs.map((log) => (
           <>
@@ -38,13 +38,13 @@ export default function Changelog(props) {
 
             {log.devChanges && log.devChanges.map((a) => (
 
-              <li>
-                <b>{'- [maintenance] '}</b>
+              <li className="devLog">
+                {'- [maintenance] '}
                 {a}
               </li>
             ))}
           </>
-        ))}
+        )).reverse()}
 
       </div>
     );

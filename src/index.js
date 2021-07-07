@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
+import './styles/misc.scss';
 import './styles/home.scss';
 import './styles/burger-menu.scss';
 import './styles/account.scss';
