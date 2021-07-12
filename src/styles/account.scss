@@ -105,6 +105,17 @@
 		height: 24px;
 		text-align: center;
 		font-size: medium;
+		margin: 4px 0 4px 0;
 	}
 
+}
+
+.validationError {
+	color: #ee5757;
+	margin-bottom: 8px;
+	text-align: center;
+
+	@media (min-width: $mobileWidth) {
+		text-align: right;
+	}
 }

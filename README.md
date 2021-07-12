@@ -18,3 +18,5 @@
 - CloudFront direct: https://d381tdzk0ut6cl.cloudfront.net/
 
 - AWS certificiate manager: https://console.aws.amazon.com/acm/home?region=us-east-1#/?id=arn:aws:acm:us-east-1:793861092533:certificate%2F1f2416f0-1f38-48a3-831f-d21df03c98c1
+
+- React-hook-form example: https://codesandbox.io/s/react-hook-form-custom-validation-8kuu7

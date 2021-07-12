@@ -1,6 +1,14 @@
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react';
 import Collapsible from 'react-collapsible';
+import { useForm } from 'react-hook-form';
+import Popup from 'reactjs-popup';
+
+
+import { isNegativeNum, isPositiveNum } from '../helpers/validations';
+
 
 import config from '../data/exampleConfiguration.json';
 
@@ -17,25 +25,44 @@ function renderContent() {
 
   return (
     <>
+      <PopupExample />
+
       <div>
         Status: {config.isPaused ? 'Paused' : 'Active'}
       </div>
 
       <ul className="cryptoItemsContainer">
+
         {Object.keys(config.records).map((record) => (
-
           <CryptoListItem key={record} recordName={record} />
-
-
         ))}
-      </ul>
 
+      </ul>
     </>
   );
 }
 
 
+/**
+ * @param {object} errors
+ * @param {string} recordName - BTC, DOGE, etc.
+ * @param {string} fieldKey - 'buyPercentage', 'sellPercentage' etc.
+ * @returns
+ */
+function getRecordError(errors, recordName, fieldKey) {
+  return errors?.records?.[recordName].thresholds?.[fieldKey]?.message;
+}
+
+
 function CryptoListItem(props) {
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      ...config,
+    },
+  });
+
+  const onSubmit = (data) => console.log(data);
 
   const { recordName } = props;
   const record = config.records[recordName];
@@ -48,14 +75,15 @@ function CryptoListItem(props) {
     warningPercentage,
   } = record.thresholds;
 
+  const registerFieldName = `records.${recordName}.thresholds`;
+
   return (
     <Collapsible
       trigger={<CryptoListItemHeader record={record} recordName={recordName} />}
       transitionTime={160}
-      onClick={console.log(props)}
     >
 
-      <div className="editCryptoContainer">
+      <form className="editCryptoContainer" onSubmit={handleSubmit(onSubmit)}>
 
         {/* STATIC DATA */}
 
@@ -72,21 +100,28 @@ function CryptoListItem(props) {
         <div className="editCryptoInputItem">
           Sell percentage:
           <input
-            defaultValue={buyPercentage}
+            defaultValue={sellPercentage}
             type="number"
-            // placeholder="Sell percentage"
+            {...register(`${registerFieldName}.sellPercentage`, {
+              validate: (v) => isPositiveNum(v),
+            })}
           />
         </div>
+        <div className="validationError">{getRecordError(errors, recordName, 'sellPercentage')}</div>
         <p>The increase that has to be met before selling the crypto-currency back into USDT</p>
+
 
         <div className="editCryptoInputItem">
           Buy percentage:
           <input
-            defaultValue={sellPercentage}
+            defaultValue={buyPercentage}
             type="number"
-            // placeholder="Sell percentage"
+            {...register(`${registerFieldName}.buyPercentage`, {
+              validate: (v) => isNegativeNum(v),
+            })}
           />
         </div>
+        <div className="validationError">{getRecordError(errors, recordName, 'buyPercentage')}</div>
         <p>The decrease that has to be met before buying back into the crypto</p>
 
 
@@ -96,8 +131,12 @@ function CryptoListItem(props) {
             defaultValue={stopLossPercentage}
             type="number"
             placeholder="optional"
+            {...register(`${registerFieldName}.stopLossPercentage`, {
+              validate: (v) => isNegativeNum(v, false),
+            })}
           />
         </div>
+        <div className="validationError">{getRecordError(errors, recordName, 'stopLossPercentage')}</div>
         <p>
           Threshold to sell at a loss -
           once met your buy/sell percentages will be adjusted to break-even
@@ -110,8 +149,12 @@ function CryptoListItem(props) {
             defaultValue={warningPercentage}
             type="number"
             placeholder="optional"
+            {...register(`${registerFieldName}.warningPercentage`, {
+              validate: (v) => isNegativeNum(v, false),
+            })}
           />
         </div>
+        <div className="validationError">{getRecordError(errors, recordName, 'warningPercentage')}</div>
         <p>The decrease in % relative to the last purchase price</p>
 
         {/* BUTTONS */}
@@ -161,14 +204,14 @@ function CryptoListItem(props) {
         </button>
 
         <button
-          type="button"
+          type="submit"
           className="button-blue"
-          onClick={() => console.log('hello')}
         >
           Save
         </button>
 
-      </div>
+
+      </form>
 
 
     </Collapsible>
@@ -194,3 +237,12 @@ function CryptoListItemHeader(props) {
 export default function ConfigurationContainer() {
   return renderContent();
 }
+
+
+const PopupExample = () => (
+  <Popup position="center center" modal nested trigger={<button type="button">Trigger</button>}>
+    <div>Popup content here !!</div>
+  </Popup>
+);
+
+// https://react-popup.elazizi.com/react-modal/
