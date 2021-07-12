@@ -2,26 +2,34 @@
 @import "variables.scss";
 
 .button {
-  background: rgb(204, 204, 204);
+  background: none;
   border: 1px solid #a5a5a5;
   color: white;
-  border-radius: 4px;
+  // border-radius: 4px;
   height: fit-content;
   margin: 12px 0 12px 0;
   padding: 4px;
-  grid-column-start: 1;
-  grid-column-end: 3;
+  border-radius: 40px;
+  font-size: 16px;
+
+//   &-red {
+// 	@extend .button;
+// 	background-color: rgb(255, 73, 73);
+// 	border: 1px solid #d14848;
+//   }
 
   &-red {
 	@extend .button;
-	background-color: rgb(255, 73, 73);
-	border: 1px solid #d14848;
+	border: 1px solid #ee5757;
+	color: #ee5757;
   }
 
   &-blue {
 	@extend .button;
-	background-color: rgb(0, 132, 255);
-	border: 1px solid #1069a5;
+	// background-color: rgb(0, 132, 255);
+	background: none;
+	border: 1px solid $featureColour;
+	color: $featureColour;
   }
 }
 
@@ -31,23 +39,72 @@
     justify-content: space-between;
 }
 
+.Collapsible {
+	margin: 8px;
+}
+
 .cryptoItemsContainer {
 	background: $panelColour;
 	border-radius: 4px;
 	padding: 4px;
 }
 
-.cryptoListItem {
+.cryptoListItemHeader {
 	background: rgb(170, 170, 170);
 	color: white;
 	display: flex;
 	justify-content: space-between;
 	border-radius: 4px;
 	padding: 8px;
-	margin: 8px;
 
 	&-holding {
-		@extend .cryptoListItem;
-		background-color: rgb(0, 132, 255);
+		@extend .cryptoListItemHeader;
+		background-color: $featureColour
 	}
+}
+
+
+.is-open {
+	li {
+		border-radius: 4px 4px 0 0;
+	}
+}
+
+
+.editCryptoContainer {
+	text-align: left;
+	padding: 16px;
+	border: 1px solid $featureColour;
+	border-radius: 0 0 4px 4px;
+	border-top-width: 0px;
+	height: fit-content;
+
+	p {
+		margin: 0;
+		padding: 0 8px 0 8px;
+		padding-bottom: 32px;
+	}
+
+	button {
+		width: 100%;
+	}
+}
+
+.cryptoItemDetails {
+	padding-bottom: 32px;
+}
+
+.editCryptoInputItem {
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+	color: white;
+
+	input {
+		width: 64px;
+		height: 24px;
+		text-align: center;
+		font-size: medium;
+	}
+
 }
