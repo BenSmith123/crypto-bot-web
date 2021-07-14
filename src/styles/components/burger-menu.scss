@@ -1,53 +1,52 @@
-
 /**
  * Burger menu styles
  */
 
 .bm-overlay {
-    background: none !important;
+	background: none !important;
 }
 
 .bm-menu {
-    overflow: hidden !important;
+	overflow: hidden !important;
 }
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-    position: fixed;
-    width: 24px;
-    height: 20px;
-    left: 24px;
-    top: 24px;
-    display: inline-block;
-    @media (min-width: $mobileWidth) {
-        display: none;
-        /* hide button in desktop view */
-    }
+	position: fixed;
+	width: 24px;
+	height: 20px;
+	left: 24px;
+	top: 24px;
+	display: inline-block;
+	@media (min-width: $mobileWidth) {
+		display: none;
+		/* hide button in desktop view */
+	}
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-    background: $textColour;
+	background: $textColour;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-    background: $textHover;
+	background: $textHover;
 }
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-    height: 24px;
-    width: 24px;
-    @media (min-width: $mobileWidth) {
-        display: none;
-        /* hide button in desktop view */
-    }
+	height: 24px;
+	width: 24px;
+	@media (min-width: $mobileWidth) {
+		display: none;
+		/* hide button in desktop view */
+	}
 }
 
 /* Color/shape of close button cross */
 .bm-cross {
-    background: $textColour;
+	background: $textColour;
 }
 
 /*
@@ -55,43 +54,43 @@
  * Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
  */
 .bm-menu-wrap {
-    position: fixed;
-    width: 304px !important;
-    height: 100%;
-    transition-duration: 0.2s !important;
+	position: fixed;
+	width: 304px !important;
+	height: 100%;
+	transition-duration: 0.2s !important;
 }
 
 /* General sidebar styles */
 .bm-menu {
-    background: $navBarColour;
-    font-size: 1.15em;
+	background: $navBarColour;
+	font-size: 1.15em;
 }
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-    fill: #f30000;
+	fill: #f30000;
 }
 
 /* Wrapper for item list */
 .bm-item-list {
-    color: #b8b7ad;
+	color: #b8b7ad;
 }
 
 /* Individual item */
 .bm-item {
-    display: inline-block;
+	display: inline-block;
 	outline: none;
 }
 
 .bm-item:hover {
-    background: $pageColour;
+	background: $pageColour;
 }
 
 .bm-item:focus-visible {
-    outline: none;
+	outline: none;
 }
 
 /* Styling of overlay */
 .bm-overlay {
-    background: rgba(209, 12, 12, 0.452);
+	background: rgba(209, 12, 12, 0.452);
 }
