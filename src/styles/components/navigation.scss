@@ -1,0 +1,40 @@
+
+.navSpacer {
+	width: 100%;
+	height: 20%;
+	position: relative;
+	background: $navBarColour;
+}
+
+.navLink {
+	display: flex;
+	padding: 24px 0 24px 0;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+
+	p {
+		flex: 1;
+		margin: 0 0 0 16px;
+	}
+}
+
+.sideNav {
+	min-width: 304px;
+	height: 50px;
+}
+
+.mobileHeader {
+	z-index: 1000;
+	background: $featureColour;
+	position: fixed;
+	width: 100%;
+	height: 68px;
+	left: 0;
+	top: 0;
+	display: inline-block;
+
+	@media (min-width: $mobileWidth) {
+		display: none;
+	}
+}
