@@ -1,0 +1,18 @@
+
+/**
+ * Load all scss files in the `src/styles` folder - this is imported in index.js
+ */
+
+// load settings
+@import 'variables';
+
+// apply styles
+@import 'account';
+@import 'home';
+@import 'index';
+@import 'misc';
+
+// components
+@import 'components/burger-menu';
+@import 'components/popup';
+
