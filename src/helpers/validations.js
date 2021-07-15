@@ -23,7 +23,16 @@ async function isPositiveNum(n, isRequired = true) {
 }
 
 
+async function isOneOrMore(n, isRequired = true) {
+  if (!isRequired && !n) {
+    return true;
+  }
+  return (n >= 1) || 'Must be a at least 1';
+}
+
+
 export {
   isNegativeNum,
   isPositiveNum,
+  isOneOrMore,
 };

@@ -6,8 +6,9 @@ import Collapsible from 'react-collapsible';
 import { useForm } from 'react-hook-form';
 import Popup from 'reactjs-popup';
 
+import PopupDialog from './PopupDialog';
 
-import { isNegativeNum, isPositiveNum } from '../helpers/validations';
+import { isNegativeNum, isPositiveNum, isOneOrMore } from '../helpers/validations';
 
 
 import config from '../data/exampleConfiguration.json';
@@ -25,13 +26,12 @@ function renderContent() {
 
   return (
     <>
-      <PopupExample />
-
-      <div>
-        Status: {config.isPaused ? 'Paused' : 'Active'}
-      </div>
 
       <ul className="cryptoItemsContainer">
+
+        <div>Bot status: {config.isPaused ? 'Paused' : 'Active'}</div>
+        <div>Monitored currencies: {Object.keys(config.records).length}</div>
+        <div>Estimate total funds: $... USD ($... NZD)</div>
 
         {Object.keys(config.records).map((record) => (
           <CryptoListItem key={record} recordName={record} />
@@ -50,7 +50,10 @@ function renderContent() {
  * @returns
  */
 function getRecordError(errors, recordName, fieldKey) {
-  return errors?.records?.[recordName].thresholds?.[fieldKey]?.message;
+  // if the field doesn't exist in the .record.BTC.thresholds,
+  // check if the key is in .record.BTC.
+  return errors?.records?.[recordName].thresholds?.[fieldKey]?.message
+  || errors?.records?.[recordName]?.[fieldKey];
 }
 
 
@@ -67,12 +70,9 @@ function CryptoListItem(props) {
   const { recordName } = props;
   const record = config.records[recordName];
 
-  const { isHolding, isPaused } = record;
+  const { isHolding, isPaused, limitUSDT } = record;
   const {
-    buyPercentage,
-    sellPercentage,
-    stopLossPercentage,
-    warningPercentage,
+    buyPercentage, sellPercentage, stopLossPercentage, warningPercentage,
   } = record.thresholds;
 
   const registerFieldName = `records.${recordName}.thresholds`;
@@ -89,13 +89,34 @@ function CryptoListItem(props) {
 
         <div className="cryptoItemDetails">
           <div>Status: {isHolding ? 'Holding' : 'Waiting to buy'}</div>
+          <div>Initial amount: $xx</div>
+          <div>Estimate amount: $xx</div>
           {isHolding
             ? <div>Last buy price: {record.lastBuyPrice}</div>
             : <div>Last sell price: {record.lastBuyPrice}</div>}
           <div>Last transaction: {record.orderDate}</div>
         </div>
 
+        <hr />
+
         {/* INPUT FIELDS */}
+
+        <div className="editCryptoInputItem">
+          Limit (USDT):
+          <input
+            defaultValue={limitUSDT}
+            type="number"
+            placeholder="optional"
+            {...register(`${registerFieldName}.limitUSDT`, {
+              validate: (v) => isOneOrMore(v, false),
+            })}
+          />
+        </div>
+        <div className="validationError">{getRecordError(errors, recordName, 'limitUSDT')}</div>
+        <p>
+          The amount of USDT to use when trading the given crypto. The limit will be adjusted on
+          every sell transaction to continue trading with additional gains/losses.
+        </p>
 
         <div className="editCryptoInputItem">
           Sell percentage:
@@ -160,59 +181,124 @@ function CryptoListItem(props) {
         {/* BUTTONS */}
 
         {isHolding ? (
-          <button
-            type="button"
-            className="button"
-            onClick={() => console.log('hello')}
+          <Popup
+            position="center center"
+            modal
+            nested
+            trigger={(<button type="button" className="button-red">Sell</button>)}
           >
-            Sell
-          </button>
+            {(close) => (
+              <PopupDialog
+                close={close}
+                questionDialog
+                title="Are you sure?"
+                confirmText="Sell"
+                description={(
+                  <>
+                    <p>The bot will sell your <b>{recordName}</b> when it is next run.</p>
+                    <p>
+                      The bot will keep record of the sell price and continue to
+                      monitor <b>{recordName}</b> and buy back in when the buy percentage is met.
+                    </p>
+                  </>
+)}
+                acceptFunc={() => console.log('hello')}
+              />
+            )}
+          </Popup>
         ) : (
-          <button
-            type="button"
-            className="button-red"
-            onClick={() => console.log('hello')}
+          <Popup
+            position="center center"
+            modal
+            nested
+            trigger={(<button type="button" className="button-red">Pause</button>)}
           >
-            Buy
-          </button>
+            {(close) => (
+              <PopupDialog
+                close={close}
+                questionDialog
+                title="Are you sure?"
+                confirmText="Sell"
+                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
+                acceptFunc={() => console.log('hello')}
+              />
+            )}
+          </Popup>
         )}
 
         {isPaused ? (
-          <button
-            type="button"
-            className="button"
-            onClick={() => console.log('hello')}
+          <Popup
+            position="center center"
+            modal
+            nested
+            trigger={(<button type="button" className="button-red">Unpause</button>)}
           >
-            Unpause
-          </button>
+            {(close) => (
+              <PopupDialog
+                close={close}
+                questionDialog
+                title="Are you sure?"
+                confirmText="Unpause"
+                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
+                acceptFunc={() => console.log('hello')}
+              />
+            )}
+          </Popup>
         ) : (
-          <button
-            type="button"
-            className="button-red"
-            onClick={() => console.log('hello')}
+          <Popup
+            position="center center"
+            modal
+            nested
+            trigger={(<button type="button" className="button">Pause</button>)}
           >
-            Pause
-          </button>
+            {(close) => (
+              <PopupDialog
+                close={close}
+                questionDialog
+                title="Are you sure?"
+                confirmText="Pause"
+                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
+                acceptFunc={() => console.log('hello')}
+              />
+            )}
+          </Popup>
         )}
 
-        <button
-          type="button"
-          className="button-red"
-          onClick={() => console.log('hello')}
+        <Popup
+          position="center center"
+          modal
+          nested
+          trigger={(<button type="button" className="button">Remove</button>)}
         >
-          Remove
-        </button>
+          {(close) => (
+            <PopupDialog
+              close={close}
+              questionDialog
+              title="Are you sure?"
+              confirmText="Remove"
+              description={`Removing ${recordName} will stop the bot from monitoring/trading in it but will not sell`}
+              acceptFunc={() => console.log('hello')}
+            />
+          )}
+        </Popup>
 
-        <button
-          type="submit"
-          className="button-blue"
+        <Popup
+          position="center center"
+          modal
+          nested
+          trigger={(<button type="submit" className="button-blue">Save</button>)}
         >
-          Save
-        </button>
+          {(close) => (
+            <PopupDialog
+              close={close}
+              title="Saving..."
+              acceptFunc={() => console.log('hello')}
+            />
+          )}
+        </Popup>
 
 
       </form>
-
 
     </Collapsible>
 
@@ -237,12 +323,3 @@ function CryptoListItemHeader(props) {
 export default function ConfigurationContainer() {
   return renderContent();
 }
-
-
-const PopupExample = () => (
-  <Popup position="center center" modal nested trigger={<button type="button">Trigger</button>}>
-    <div>Popup content here !!</div>
-  </Popup>
-);
-
-// https://react-popup.elazizi.com/react-modal/

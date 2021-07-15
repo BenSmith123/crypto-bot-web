@@ -1,8 +1,17 @@
 .popup-content {
 	margin: auto;
-	background: rgb(255, 255, 255);
-	width: 50%;
-	padding: 5px;
+	background: $panelColour;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+	align-content: center;
+	text-align: center;
+	padding: 20px;
+	border-radius: 8px;
+	width: 80%;
+	@media (min-width: $mobileWidth) {
+		width: 50%;
+	}
 }
 .popup-arrow {
 	color: rgb(255, 255, 255);
@@ -13,9 +22,20 @@
 }
 
 .popup-overlay {
-	background: rgba(0, 0, 0, 0.753);
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 1200 !important; // override the navbar & inline style
 }
 
 [data-popup="tooltip"].popup-overlay {
 	// background: transparent;
+}
+
+.dialogButtonContainer {
+	display: flex;
+    justify-content: space-around;
+}
+
+.button-dialog {
+	min-width: 120px;
+	outline-width: 0px !important;
 }

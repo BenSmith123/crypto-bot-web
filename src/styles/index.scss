@@ -78,6 +78,10 @@ select:focus-visible {
 	border: 1px solid #95a0ac;
 }
 
+button:focus-visible {
+	outline: none;
+}
+
 input {
 	// background: $pageColour;
 	// border-bottom: 1px solid #626970;
@@ -159,6 +163,7 @@ img {
 	overflow: hidden;
 	text-align: center;
 	padding: 20px;
+	min-height: 100vh;
 }
 
 .pageContent-textLeft {
