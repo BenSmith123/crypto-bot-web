@@ -58,6 +58,11 @@
 	width: 304px !important;
 	height: 100%;
 	transition-duration: 0.2s !important;
+
+	// @media (min-width: $mobileWidth) {
+	// transition-duration: 0.2s !important;
+	// 	display: grid;
+	// }
 }
 
 /* General sidebar styles */

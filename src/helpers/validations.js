@@ -11,7 +11,7 @@ async function isNegativeNum(n, isRequired = true) {
   if (!isRequired && !n) {
     return true;
   }
-  return (n < 0) || 'Must be a negative number';
+  return (typeof n === 'number' && n < 0) || 'Must be a negative number';
 }
 
 
@@ -19,7 +19,7 @@ async function isPositiveNum(n, isRequired = true) {
   if (!isRequired && !n) {
     return true;
   }
-  return (n > 0) || 'Must be a positive number';
+  return (typeof n === 'number' && n > 0) || 'Must be a positive number';
 }
 
 
@@ -27,7 +27,7 @@ async function isOneOrMore(n, isRequired = true) {
   if (!isRequired && !n) {
     return true;
   }
-  return (n >= 1) || 'Must be a at least 1';
+  return (typeof n === 'number' && n >= 1) || 'Must be a at least 1';
 }
 
 

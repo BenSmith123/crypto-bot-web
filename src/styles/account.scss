@@ -74,6 +74,10 @@ button:focus {
 		@extend .cryptoListItemHeader;
 		background-color: $featureColour;
 	}
+
+	span {
+		font-weight: bold;
+	}
 }
 
 .is-open {

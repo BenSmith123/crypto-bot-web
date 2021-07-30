@@ -52,14 +52,24 @@ function renderContent() {
 function getRecordError(errors, recordName, fieldKey) {
   // if the field doesn't exist in the .record.BTC.thresholds,
   // check if the key is in .record.BTC.
-  return errors?.records?.[recordName].thresholds?.[fieldKey]?.message
-  || errors?.records?.[recordName]?.[fieldKey];
+  if (!Object.keys(errors).length) return null;
+
+  if (errors?.records?.[recordName]?.[fieldKey]) {
+    return errors?.records?.[recordName]?.[fieldKey].message;
+  }
+
+  if (errors?.records?.[recordName].thresholds?.[fieldKey]) {
+    return errors?.records?.[recordName].thresholds?.[fieldKey].message;
+  }
+
+  return null;
 }
 
 
 function CryptoListItem(props) {
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
+    reValidateMode: 'onChange',
     defaultValues: {
       ...config,
     },
@@ -107,8 +117,8 @@ function CryptoListItem(props) {
             defaultValue={limitUSDT}
             type="number"
             placeholder="optional"
-            {...register(`${registerFieldName}.limitUSDT`, {
-              validate: (v) => isOneOrMore(v, false),
+            {...register(`records.${recordName}.limitUSDT`, {
+              validate: (v) => isOneOrMore(Number(v), false),
             })}
           />
         </div>
@@ -124,7 +134,7 @@ function CryptoListItem(props) {
             defaultValue={sellPercentage}
             type="number"
             {...register(`${registerFieldName}.sellPercentage`, {
-              validate: (v) => isPositiveNum(v),
+              validate: (v) => isPositiveNum(Number(v)),
             })}
           />
         </div>
@@ -138,7 +148,7 @@ function CryptoListItem(props) {
             defaultValue={buyPercentage}
             type="number"
             {...register(`${registerFieldName}.buyPercentage`, {
-              validate: (v) => isNegativeNum(v),
+              validate: (v) => isNegativeNum(Number(v)),
             })}
           />
         </div>
@@ -153,7 +163,7 @@ function CryptoListItem(props) {
             type="number"
             placeholder="optional"
             {...register(`${registerFieldName}.stopLossPercentage`, {
-              validate: (v) => isNegativeNum(v, false),
+              validate: (v) => isNegativeNum(Number(v), false),
             })}
           />
         </div>
@@ -171,7 +181,7 @@ function CryptoListItem(props) {
             type="number"
             placeholder="optional"
             {...register(`${registerFieldName}.warningPercentage`, {
-              validate: (v) => isNegativeNum(v, false),
+              validate: (v) => isNegativeNum(Number(v), false),
             })}
           />
         </div>
@@ -286,7 +296,14 @@ function CryptoListItem(props) {
           position="center center"
           modal
           nested
-          trigger={(<button type="submit" className="button-blue">Save</button>)}
+          trigger={(
+            <button
+              type="submit"
+              disabled={!(isDirty && isValid)}
+              className={isDirty && isValid ? 'button-blue' : 'button'}
+            >Save
+            </button>
+)}
         >
           {(close) => (
             <PopupDialog
@@ -313,7 +330,7 @@ function CryptoListItemHeader(props) {
 
   return (
     <li className={`cryptoListItemHeader${record.isHolding ? '-holding' : ''}`}>
-      <div>{recordName}</div>
+      <span>{recordName}</span>
       <div>${record.limitUSDT} USD</div>
     </li>
   );

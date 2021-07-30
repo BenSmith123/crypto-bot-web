@@ -30,14 +30,25 @@ const mobileScreenWidth = 918; // width in px that is mobile
 
 export default function App() {
 
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < mobileScreenWidth);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [apiChangelog, setApiChangelog] = useState(null);
   const [apiCommands, setApiCommands] = useState(null);
 
-
   useEffect(async () => {
+
+    function handleResize() {
+      if (window.innerWidth < mobileScreenWidth) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    }
+
+    handleResize(); // set isMobile on initial page load
+
+    window.addEventListener('resize', handleResize);
 
     // stack promises and make all API calls asynchronously
     const apiPromiseArr = [
@@ -51,17 +62,6 @@ export default function App() {
     setApiChangelog(changelog);
     setApiCommands(commands);
 
-    function handleResize() {
-      if (window.innerWidth < mobileScreenWidth) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    }
-
-    handleResize(); // set isMobile on initial page load
-
-    window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -90,11 +90,11 @@ export default function App() {
 
           <div className="mobileHeader" />
           <Menu
+            noTransition // why doesn't this work
             isOpen={!isMobile || menuOpen}
             disableOverlayClick={!isMobile}
             disableCloseOnEsc
             noOverlay
-            // noTransition // why doesn't this work
             styles={{ display: isMobile ? 'none' : 'hidden' }}
             onStateChange={({ isOpen }) => {
               setMenuOpen(isOpen); // ensure state is changed every time the menu is open/closed

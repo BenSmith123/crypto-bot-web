@@ -2,19 +2,20 @@
 # cryptobot.nz
 
 ### Description
-- Cryptobot.nz uses the 'Crypto Assistant' (discord-api) to read from the database, the API endpoints used to update user/bot configuration are currently not exposed to the web. Production API found here: https://github.com/BenSmith123/crypto-analyser
+- Cryptobot.nz uses the 'Crypto Assistant' (discord-api) to access data from the database. The API endpoints used to update user/bot configuration are currently not exposed to the web. Production API found here: https://github.com/BenSmith123/crypto-analyser
 - The actual crypto-currency bot lambda functions are not exposed to the web either
 
 ### Commands
-- `npm start`: Runs the website locally. Note: to access the API from local host you'll need headers:
+- `npm start` - Runs the website locally. Note: to access the API from local host you'll need headers:
 	- Request: 'Origin': 'cryptobot.nz'
 	- Response: 'Access-Control-Allow-Origin': '*'
 
-- `npm run deploy`: Does a production react build and then deploys the /build folder to S3
+- `npm run deploy` - Does a production react build and then deploys the /build folder to S3
 
 
 ### TODO
 - Cryptobot favicon/images
+- Meta tags & images & SEO
 - Prevent desktop navbar from sliding in
 - Add hover everywhere for desktop
 
@@ -28,3 +29,9 @@
 - React-hook-form example: https://codesandbox.io/s/react-hook-form-custom-validation-8kuu7
 
 - https://react-hook-form.com/api/useform/formstate
+
+https://medium.com/@sumindaniro/user-authentication-and-authorization-with-aws-cognito-d204492dd1d0
+
+
+https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#option-2-call-authentication-apis-manually
+
