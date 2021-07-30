@@ -16,3 +16,29 @@
 		color: $textMinorColour;
 	}
 }
+
+.label {
+	background: $textColour;
+	color: white;
+	display: inline-block;
+	border-radius: 4px;
+	padding: 2px 8px 2px 8px;
+	margin: 4px 6px 4px 0;
+	font-size: small;
+	font-weight: bold;
+
+	&-blue {
+		@extend .label;
+		background-color: $colourBlue;
+	}
+
+	&-green {
+		@extend .label;
+		background-color: $colourGreen;
+	}
+
+	&-orange {
+		@extend .label;
+		background: $colourOrange;
+	}
+}

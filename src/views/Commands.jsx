@@ -1,6 +1,7 @@
 
 import React from 'react';
 
+import { LabelOrange } from '../components/Label';
 import image from '../assets/crypto-assistant-icon.jpg';
 
 
@@ -46,9 +47,7 @@ export default function Commands(props) {
 
                   <li>
                     {option.required && (
-                    <div className="label">
-                      required
-                    </div>
+                      <LabelOrange text="Required" />
                     )}
 
                     <code>

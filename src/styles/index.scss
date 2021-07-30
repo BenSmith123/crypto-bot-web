@@ -128,21 +128,6 @@ input:focus-visible {
 	padding: 8px;
 }
 
-.label {
-	background: rgb(255, 115, 0);
-	color: white;
-	display: inline-block;
-	border-radius: 4px;
-	padding: 2px;
-	margin: 2px 6px 2px 0;
-	font-size: small;
-
-	&-blue {
-		@extend .label;
-		background-color: rgb(0, 132, 255);
-	}
-}
-
 .pageWrapper {
 	@media (min-width: $mobileWidth) {
 		display: flex;

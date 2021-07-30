@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 
+import { LabelBlue } from '../components/Label';
 import ConfigurationContainer from '../components/ConfigurationContainer';
 
 
@@ -137,7 +138,7 @@ export default function Account(props) {
               {...register(`test.${i}.limitUSDT`)}
             />
             <div className="inputDescription">
-              <div className="label-blue">optional</div>
+              <LabelBlue text="optional" />
               The amount of USDT to use when trading the given crypto.
               The limit will be adjusted on every sell transaction to continue trading with
               additional gains/losses.
@@ -153,7 +154,7 @@ export default function Account(props) {
               {...register(`test.${i}.stopLossPercentage`)}
             />
             <div className="inputDescription">
-              <div className="label-blue">optional</div>
+              <LabelBlue text="optional" />
               Threshold to sell at a loss. Once met your buy/sell percentages
               will be adjusted to break-even
             </div>
@@ -166,7 +167,7 @@ export default function Account(props) {
               {...register(`test.${i}.warningPercentage`)}
             />
             <div className="inputDescription">
-              <div className="label-blue">optional</div>
+              <LabelBlue text="optional" />
               The increase that has to be met before selling the crypto-currency
               back into USDT
             </div>

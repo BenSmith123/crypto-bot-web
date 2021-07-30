@@ -7,10 +7,11 @@ import { useForm } from 'react-hook-form';
 import Popup from 'reactjs-popup';
 
 import PopupDialog from './PopupDialog';
+import CryptoIcon from './CryptoIcon';
+
+import { Label, LabelGreen } from './Label';
 
 import { isNegativeNum, isPositiveNum, isOneOrMore } from '../helpers/validations';
-
-import CryptoIcon from './CryptoIcon';
 
 
 /**
@@ -328,7 +329,8 @@ export default function ConfigurationContainer(props) {
     <>
       <ul className="cryptoItemsContainer">
 
-        <div>Bot status: {config.isPaused ? 'Paused' : 'Active'}</div>
+        <div>Bot status: {config.isPaused ? <Label text="Paused" /> : <LabelGreen text="Active" />}</div>
+
         <div>Monitored currencies: {Object.keys(config.records).length}</div>
         <div>Estimate total funds: $... USD ($... NZD)</div>
 
