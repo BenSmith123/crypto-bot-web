@@ -38,9 +38,10 @@ const PAGES = {
 };
 
 
-export default function Account() {
+export default function Account(props) {
 
   const [page, setPage] = useState(PAGES.configuration);
+  const { config } = props;
 
   const { register, control, handleSubmit } = useForm({
     defaultValues: {
@@ -60,7 +61,7 @@ export default function Account() {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <>
+    <div className="accountPage">
       <h1>Account</h1>
 
       {/* <h2>Bot configuration</h2> */}
@@ -75,7 +76,7 @@ export default function Account() {
       </div>
 
       {page === PAGES.configuration ? (
-        <ConfigurationContainer />
+        <ConfigurationContainer config={config} />
       ) : (
         <div>transactions</div>
       )}
@@ -83,13 +84,11 @@ export default function Account() {
       <div className="pageContent-textLeft">
 
         <form onSubmit={handleSubmit(onSubmit)}>
-
           <CryptoForm />
-
         </form>
 
       </div>
-    </>
+    </div>
   );
 
 

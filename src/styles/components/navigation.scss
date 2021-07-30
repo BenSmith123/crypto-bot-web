@@ -20,6 +20,11 @@
 	}
 }
 
+.navLink-active {
+	color: $featureColour;
+	background-color: $pageColour;
+}
+
 .sideNav {
 	min-width: 304px;
 	height: 50px;

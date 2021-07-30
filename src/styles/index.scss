@@ -25,6 +25,10 @@ h5 {
 	color: $textTitleColour;
 }
 
+h1 {
+	font-size: 1.8em;
+}
+
 a {
 	color: white;
 	width: 100%;
@@ -151,7 +155,6 @@ input:focus-visible {
 
 img {
 	border-radius: 50%;
-	width: 128px;
 }
 
 .pageContent {
@@ -162,7 +165,7 @@ img {
 	left: auto;
 	overflow: hidden;
 	text-align: center;
-	padding: 20px;
+	padding: 0 20px 0 20px;
 	min-height: 100vh;
 }
 

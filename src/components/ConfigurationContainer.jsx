@@ -10,37 +10,7 @@ import PopupDialog from './PopupDialog';
 
 import { isNegativeNum, isPositiveNum, isOneOrMore } from '../helpers/validations';
 
-
-import config from '../data/exampleConfiguration.json';
-
-
-function renderContent() {
-
-  if (!config) {
-    return (<div>Loading...</div>);
-  }
-
-  if (!config.id || !config.records) {
-    return (<div>Error</div>);
-  }
-
-  return (
-    <>
-
-      <ul className="cryptoItemsContainer">
-
-        <div>Bot status: {config.isPaused ? 'Paused' : 'Active'}</div>
-        <div>Monitored currencies: {Object.keys(config.records).length}</div>
-        <div>Estimate total funds: $... USD ($... NZD)</div>
-
-        {Object.keys(config.records).map((record) => (
-          <CryptoListItem key={record} recordName={record} />
-        ))}
-
-      </ul>
-    </>
-  );
-}
+import CryptoIcon from './CryptoIcon';
 
 
 /**
@@ -67,6 +37,8 @@ function getRecordError(errors, recordName, fieldKey) {
 
 
 function CryptoListItem(props) {
+
+  const { config } = props;
 
   const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
     mode: 'onChange',
@@ -331,13 +303,40 @@ function CryptoListItemHeader(props) {
 
   return (
     <li className={`cryptoListItemHeader${record.isHolding ? '-holding' : ''}`}>
-      <span>{recordName}</span>
-      <div>${record.limitUSDT} USD</div>
+      <div className="cryptoIconLabel">
+        <CryptoIcon name={recordName} />
+        <span>{recordName}</span>
+      </div>
+      <span>${record.limitUSDT} USD</span>
     </li>
   );
 }
 
 
-export default function ConfigurationContainer() {
-  return renderContent();
+export default function ConfigurationContainer(props) {
+  const { config } = props;
+
+  if (!config) {
+    return (<div>Loading...</div>);
+  }
+
+  if (!config.id || !config.records) {
+    return (<div>Error</div>);
+  }
+
+  return (
+    <>
+      <ul className="cryptoItemsContainer">
+
+        <div>Bot status: {config.isPaused ? 'Paused' : 'Active'}</div>
+        <div>Monitored currencies: {Object.keys(config.records).length}</div>
+        <div>Estimate total funds: $... USD ($... NZD)</div>
+
+        {Object.keys(config.records).map((record) => (
+          <CryptoListItem key={record} recordName={record} config={config} />
+        ))}
+
+      </ul>
+    </>
+  );
 }
