@@ -69,7 +69,7 @@ function getRecordError(errors, recordName, fieldKey) {
 function CryptoListItem(props) {
 
   const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
-    reValidateMode: 'onChange',
+    mode: 'onChange',
     defaultValues: {
       ...config,
     },
@@ -299,9 +299,10 @@ function CryptoListItem(props) {
           trigger={(
             <button
               type="submit"
-              disabled={!(isDirty && isValid)}
+              disabled={!isDirty || !isValid}
               className={isDirty && isValid ? 'button-blue' : 'button'}
-            >Save
+            >
+              Save
             </button>
 )}
         >
