@@ -61,7 +61,7 @@ export default function Account(props) {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <>
+    <div className="accountPage">
       <h1>Account</h1>
 
       {/* <h2>Bot configuration</h2> */}
@@ -88,7 +88,7 @@ export default function Account(props) {
         </form>
 
       </div>
-    </>
+    </div>
   );
 
 

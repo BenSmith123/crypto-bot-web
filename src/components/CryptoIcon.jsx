@@ -9,8 +9,9 @@ export default function CryptoIcon(props) {
     <div className="cryptoIcon">
       <img
         className="fadein-image"
+        onError={(event) => event.target.style.display = 'none'} // eslint-disable-line
         src={`${CRYPTO_ICONS_URL}white/${name.toLowerCase()}/32`}
-        alt="icon"
+        alt={`${name.toLowerCase()}-icon`}
         width="32"
         height="32"
       />

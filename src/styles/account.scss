@@ -1,3 +1,10 @@
+
+.accountPage {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
 .tabButtons {
 	button {
 		background: $panelColour;
@@ -60,6 +67,7 @@ button:focus {
 	border-radius: 4px;
 	padding: 4px;
 	margin-top: 0;
+	height: 100%
 }
 
 .cryptoListItemHeader {
@@ -70,6 +78,7 @@ button:focus {
 	align-items: center;
 	border-radius: 4px;
 	padding: 8px;
+	height: 32px;
 
 	&-holding {
 		@extend .cryptoListItemHeader;
