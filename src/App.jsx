@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { slide as Menu } from 'react-burger-menu';
 import {
@@ -14,13 +9,13 @@ import {
   AiOutlineMenuUnfold,
   AiOutlineInfoCircle,
   // AiOutlineLock,
-  AiOutlineRight,
 } from 'react-icons/ai';
 
 import Topics from './views/Home';
 import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
+import NavItem from './components/NavItem';
 
 import { getChangelog, getCommands } from './api-interface';
 import config from './data/exampleConfiguration.json'; // TODO - replace with API call
@@ -106,53 +101,40 @@ export default function App() {
               <div className="navSpacer" />
             </>
 
-            <li>
-              <NavLink to="/" className="navLink" activeClassName="navLink-active" onClick={() => navItemSelected()}>
-                <AiOutlineHome className="icon" />
-                <p>Home</p>
-                <AiOutlineRight className="iconArrow" />
-              </NavLink>
-            </li>
+            <NavItem
+              title="Home"
+              link="/"
+              icon={<AiOutlineHome className="icon" />}
+              onClick={navItemSelected}
+            />
 
-            <li>
-              <NavLink to="/account" className="navLink" onClick={() => navItemSelected()}>
-                <AiOutlineUser className="icon" />
-                <p>Account</p>
-                <AiOutlineRight className="iconArrow" />
-              </NavLink>
-            </li>
+            <NavItem
+              title="Account"
+              link="/account"
+              icon={<AiOutlineUser className="icon" />}
+              onClick={navItemSelected}
+            />
 
-            <li>
-              <NavLink to="/crypto-assistant" className="navLink" onClick={() => navItemSelected()}>
-                <AiOutlineSmile className="icon" />
-                <p>Crypto assistant</p>
-                <AiOutlineRight className="iconArrow" />
-              </NavLink>
-            </li>
+            <NavItem
+              title="Crypto Assistant"
+              link="/crypto-assistant"
+              icon={<AiOutlineSmile className="icon" />}
+              onClick={navItemSelected}
+            />
 
-            <li>
-              <NavLink to="/changelog" className="navLink" onClick={() => navItemSelected()}>
-                <AiOutlineMenuUnfold className="icon" />
-                <p>Changelog</p>
-                <AiOutlineRight className="iconArrow" />
-              </NavLink>
-            </li>
+            <NavItem
+              title="Changelog"
+              link="/changelog"
+              icon={<AiOutlineMenuUnfold className="icon" />}
+              onClick={navItemSelected}
+            />
 
-            <li>
-              <NavLink to="/topics" className="navLink" onClick={() => navItemSelected()}>
-                <AiOutlineInfoCircle className="icon" />
-                <p>About</p>
-                <AiOutlineRight className="iconArrow" />
-              </NavLink>
-            </li>
-
-            {/* <li>
-              <Link to="/signin" className="navLink" onClick={() => navItemSelected()}>
-                <AiOutlineLock className="icon" />
-                <p>Sign in</p>
-                <AiOutlineRight className="iconArrow" />
-              </Link>
-            </li> */}
+            <NavItem
+              title="About"
+              link="/about"
+              icon={<AiOutlineInfoCircle className="icon" />}
+              onClick={navItemSelected}
+            />
 
           </Menu>
 

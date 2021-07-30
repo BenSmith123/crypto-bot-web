@@ -20,9 +20,19 @@
 	}
 }
 
+.navLink:hover {
+	color: white;
+	background-color: #323f55;
+}
+
+// important to override the hover style
 .navLink-active {
-	color: $featureColour;
-	background-color: $pageColour;
+	color: $featureColour !important;
+	background-color: $pageColour !important;
+
+	p {
+		color: $textTitleColour !important;
+	}
 }
 
 .sideNav {
