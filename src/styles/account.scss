@@ -67,6 +67,7 @@ button:focus {
 	color: white;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	border-radius: 4px;
 	padding: 8px;
 
@@ -74,9 +75,15 @@ button:focus {
 		@extend .cryptoListItemHeader;
 		background-color: $featureColour;
 	}
+}
+
+.cryptoIconLabel {
+	font-weight: bold;
+	display: flex;
+	align-items: center;
 
 	span {
-		font-weight: bold;
+		margin-left: 12px;
 	}
 }
 

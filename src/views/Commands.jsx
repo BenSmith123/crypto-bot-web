@@ -76,7 +76,7 @@ export default function Commands(props) {
     <>
       <h1>Crypto assistant</h1>
 
-      <img src={image} alt="Crypto assistant icon" />
+      <img src={image} width={128} alt="Crypto assistant icon" />
 
       <p>
         The crypto assistant serves as an interface for your bot via Discord commands.
