@@ -23,6 +23,7 @@ import Commands from './views/Commands';
 import Changelog from './views/Changelog';
 
 import { getChangelog, getCommands } from './api-interface';
+import config from './data/exampleConfiguration.json'; // TODO - replace with API call
 
 
 const mobileScreenWidth = 918; // width in px that is mobile
@@ -163,7 +164,7 @@ export default function App() {
           <Switch>
 
             <Route path="/account">
-              <Account />
+              <Account config={config} />
             </Route>
 
             <Route path="/crypto-assistant">
