@@ -16,7 +16,7 @@
 	width: 24px;
 	height: 20px;
 	left: 24px;
-	top: 24px;
+	top: 18px;
 	display: inline-block;
 	@media (min-width: $mobileWidth) {
 		display: none;
@@ -26,7 +26,7 @@
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-	background: $textColour;
+	background: rgb(214, 214, 214);
 }
 
 /* Color/shape of burger icon bars on hover*/
@@ -69,6 +69,7 @@
 .bm-menu {
 	background: $navBarColour;
 	font-size: 1.15em;
+	color: white;
 }
 
 /* Morph shape necessary with bubble or elastic */

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable */
 
 import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
@@ -77,18 +78,17 @@ export default function Account(props) {
       </div>
 
       {page === PAGES.configuration ? (
-        <ConfigurationContainer config={config} />
+        <>
+          <ConfigurationContainer config={config} />
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* <CryptoForm /> */}
+          </form>
+        </>
       ) : (
         <div>transactions</div>
       )}
 
-      <div className="pageContent-textLeft">
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <CryptoForm />
-        </form>
-
-      </div>
     </div>
   );
 
@@ -179,29 +179,6 @@ export default function Account(props) {
               defaultValue={item.lastName}
             /> */}
 
-            <button
-              type="button"
-              className="button-red"
-              onClick={() => remove(i)}
-            >
-              Remove
-            </button>
-
-            <input
-              type="submit"
-              value="Save"
-              className="button-blue"
-            />
-
-            <button
-              type="button"
-              className="button-blue"
-              onClick={() => {
-                append(defaultCurrencyValues);
-              }}
-            >
-              Add new crypto currency
-            </button>
           </div>
         ))}
       </div>

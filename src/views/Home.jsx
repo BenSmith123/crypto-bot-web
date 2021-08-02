@@ -18,10 +18,11 @@ const sections = [
         </p>
         <p>
           The main purpose of the bot is to make higher % returns based on the crypto currency price
-          fluctuations - by buying low and selling high.
+          by buying low and selling high.
         </p>
         <p>
-          Because this strategy relies heavily on the crypto currency price fluctuations, the bot
+          This strategy relies heavily on the crypto currency price fluctuations,
+          as opposed to buying and holding or relying on technical indicators
           can also be used as a smarter way of investing and holding.
         </p>
       </>

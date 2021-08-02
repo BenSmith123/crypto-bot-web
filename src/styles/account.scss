@@ -87,6 +87,15 @@ button:focus {
 	}
 }
 
+.cryptoItemsButtons {
+
+	padding: 12px;
+
+	button {
+		width: 100%;
+	}
+}
+
 .cryptoIconLabel {
 	font-weight: bold;
 	display: flex;
@@ -115,6 +124,11 @@ button:focus {
 		margin: 0;
 		padding: 0 8px 0 8px;
 		padding-bottom: 32px;
+		display: none;
+
+		@media (min-width: $mobileWidth) {
+			display: visible;
+		}
 	}
 
 	button {

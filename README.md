@@ -18,6 +18,10 @@
 - Meta tags & images & SEO
 - Prevent desktop navbar from sliding in
 - Add hover everywhere for desktop
+- Fill out the homepage with content
+- Hide editCrypto descriptions on mobile + add info button to toggle displaying it
+- prevent crypto titles from moving left if icons don't load
+- implement transactions page
 
 ### Links
 - Crypto assistant (discord-api) https://csezryhvsa.execute-api.ap-southeast-2.amazonaws.com/prod/commands
