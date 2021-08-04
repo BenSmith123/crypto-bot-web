@@ -11,6 +11,8 @@ import {
   // AiOutlineLock,
 } from 'react-icons/ai';
 
+import AppContext from './components/AppContext';
+
 import Topics from './views/Home';
 import Account from './views/Account';
 import Commands from './views/Commands';
@@ -143,26 +145,30 @@ export default function App() {
 
         <div className="pageContent">
 
-          <Switch>
+          {/* provide app context to all pages */}
+          <AppContext.Provider value={isMobile}>
 
-            <Route path="/account">
-              <Account config={config} />
-            </Route>
+            <Switch>
+              <Route path="/account">
+                <Account config={config} />
+              </Route>
 
-            <Route path="/crypto-assistant">
-              <Commands apiCommands={apiCommands} />
-            </Route>
+              <Route path="/crypto-assistant">
+                <Commands apiCommands={apiCommands} />
+              </Route>
 
-            <Route path="/changelog">
-              <Changelog apiChangelog={apiChangelog} />
-            </Route>
+              <Route path="/changelog">
+                <Changelog apiChangelog={apiChangelog} />
+              </Route>
 
-            <Route path="/">
+              <Route path="/">
+                {/* TODO */}
+                <Topics />
+              </Route>
+            </Switch>
 
-              <Topics />
-            </Route>
+          </AppContext.Provider>
 
-          </Switch>
         </div>
 
       </Router>
