@@ -21,6 +21,11 @@ export default function CryptoDescription(props) {
         )}
       </AppContext.Consumer>
       {text}
+
+      <div>
+        The amount of USDT to use when trading the given crypto. The limit will be adjusted on
+        every sell transaction to continue trading with additional gains/losses.
+      </div>
     </>
   );
 }

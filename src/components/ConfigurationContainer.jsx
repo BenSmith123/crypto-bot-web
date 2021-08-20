@@ -61,6 +61,7 @@ function CryptoListItem(props) {
   const registerFieldName = `records.${recordName}.thresholds`;
 
   return (
+
     <Collapsible
       trigger={<CryptoListItemHeader record={record} recordName={recordName} />}
       transitionTime={160}
@@ -337,6 +338,28 @@ export default function ConfigurationContainer(props) {
         {Object.keys(config.records).map((record) => (
           <CryptoListItem key={record} recordName={record} config={config} />
         ))}
+
+
+        <div className="cryptoItemsButtons">
+
+          <button
+            type="button"
+            className="button-red"
+          >
+            Pause bot
+          </button>
+
+          <button
+            type="button"
+            className="button-blue"
+            onClick={() => {
+            // append(defaultCurrencyValues);
+            }}
+          >
+            Add crypto currency
+          </button>
+
+        </div>
 
       </ul>
     </>
