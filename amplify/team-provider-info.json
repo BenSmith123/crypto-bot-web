@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cryptobotweb-dev-160122-authRole",
+      "UnauthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-160122-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-160122-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-cryptobotweb-dev-160122-deployment",
+      "UnauthRoleName": "amplify-cryptobotweb-dev-160122-unauthRole",
+      "StackName": "amplify-cryptobotweb-dev-160122",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:793861092533:stack/amplify-cryptobotweb-dev-160122/4a547460-016b-11ec-b531-06435081cd1e",
+      "AmplifyAppId": "don9keslhqr4u"
+    },
+    "categories": {
+      "auth": {
+        "cryptobotweb25f5d476": {}
+      }
+    }
+  }
+}

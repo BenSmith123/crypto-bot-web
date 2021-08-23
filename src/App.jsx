@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import Amplify, { Auth } from 'aws-amplify';
+
 import { slide as Menu } from 'react-burger-menu';
 import {
   AiOutlineHome,
@@ -10,17 +12,22 @@ import {
   AiOutlineInfoCircle,
   // AiOutlineLock,
 } from 'react-icons/ai';
+import awsconfig from './aws-exports';
 
 import AppContext from './components/AppContext';
+import NavItem from './components/NavItem';
 
 import Topics from './views/Home';
 import Account from './views/Account';
 import Commands from './views/Commands';
 import Changelog from './views/Changelog';
-import NavItem from './components/NavItem';
+import Signin from './views/Signin';
 
 import { getChangelog, getCommands } from './api-interface';
-import config from './data/exampleConfiguration.json'; // TODO - replace with API call
+import config from './data/exampleConfiguration.json';
+
+
+Amplify.configure(awsconfig); // TODO - replace with API call
 
 
 const mobileScreenWidth = 918; // width in px that is mobile
@@ -30,6 +37,8 @@ export default function App() {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < mobileScreenWidth);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [user, setUser] = useState(null);
 
   const [apiChangelog, setApiChangelog] = useState(null);
   const [apiCommands, setApiCommands] = useState(null);
@@ -47,6 +56,8 @@ export default function App() {
     handleResize(); // set isMobile on initial page load
 
     window.addEventListener('resize', handleResize);
+
+    setUser(await Auth.currentAuthenticatedUser());
 
     // stack promises and make all API calls asynchronously
     const apiPromiseArr = [
@@ -138,6 +149,13 @@ export default function App() {
               onClick={navItemSelected}
             />
 
+            <NavItem
+              title="Sign in"
+              link="/signin"
+              icon={<AiOutlineInfoCircle className="icon" />}
+              onClick={navItemSelected}
+            />
+
           </Menu>
 
         </div>
@@ -159,6 +177,14 @@ export default function App() {
 
               <Route path="/changelog">
                 <Changelog apiChangelog={apiChangelog} />
+              </Route>
+
+              <Route path="/signin">
+                <>
+                  <Signin />
+
+                  <p>{console.log(user)}</p>
+                </>
               </Route>
 
               <Route path="/">
