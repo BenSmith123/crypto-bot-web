@@ -11,6 +11,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@aws-amplify/ui-components": "^1.7.3",
     "@aws-amplify/ui-react": "^1.2.10",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

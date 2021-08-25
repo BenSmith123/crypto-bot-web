@@ -43,6 +43,15 @@ export default function App() {
   const [apiChangelog, setApiChangelog] = useState(null);
   const [apiCommands, setApiCommands] = useState(null);
 
+  console.log(user);
+
+
+  function handleSignout() {
+    Auth.signOut(user);
+    setUser(null);
+  }
+
+
   useEffect(async () => {
 
     function handleResize() {
@@ -149,12 +158,21 @@ export default function App() {
               onClick={navItemSelected}
             />
 
-            <NavItem
-              title="Sign in"
-              link="/signin"
-              icon={<AiOutlineInfoCircle className="icon" />}
-              onClick={navItemSelected}
-            />
+            {user ? (
+              <NavItem
+                title="Sign out"
+                link="/signin"
+                icon={<AiOutlineInfoCircle className="icon" />}
+                onClick={handleSignout}
+              />
+            ) : (
+              <NavItem
+                title="Sign in"
+                link="/signin"
+                icon={<AiOutlineInfoCircle className="icon" />}
+                onClick={navItemSelected}
+              />
+            )}
 
           </Menu>
 
@@ -180,11 +198,7 @@ export default function App() {
               </Route>
 
               <Route path="/signin">
-                <>
-                  <Signin />
-
-                  <p>{console.log(user)}</p>
-                </>
+                <Signin setUser={setUser} />
               </Route>
 
               <Route path="/">

@@ -1,19 +1,32 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-cryptobotweb-dev-160122-authRole",
-      "UnauthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-160122-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-160122-authRole",
+      "AuthRoleName": "amplify-cryptobotweb-dev-203340-authRole",
+      "UnauthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-203340-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-dev-203340-authRole",
       "Region": "ap-southeast-2",
-      "DeploymentBucketName": "amplify-cryptobotweb-dev-160122-deployment",
-      "UnauthRoleName": "amplify-cryptobotweb-dev-160122-unauthRole",
-      "StackName": "amplify-cryptobotweb-dev-160122",
-      "StackId": "arn:aws:cloudformation:ap-southeast-2:793861092533:stack/amplify-cryptobotweb-dev-160122/4a547460-016b-11ec-b531-06435081cd1e",
-      "AmplifyAppId": "don9keslhqr4u"
+      "DeploymentBucketName": "amplify-cryptobotweb-dev-203340-deployment",
+      "UnauthRoleName": "amplify-cryptobotweb-dev-203340-unauthRole",
+      "StackName": "amplify-cryptobotweb-dev-203340",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:793861092533:stack/amplify-cryptobotweb-dev-203340/fd30aca0-04b5-11ec-883a-021deb1b8e9e",
+      "AmplifyAppId": "d9aslkcl2ym0j"
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cryptobotweb-prod-210925-authRole",
+      "UnauthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-prod-210925-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::793861092533:role/amplify-cryptobotweb-prod-210925-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-cryptobotweb-prod-210925-deployment",
+      "UnauthRoleName": "amplify-cryptobotweb-prod-210925-unauthRole",
+      "StackName": "amplify-cryptobotweb-prod-210925",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:793861092533:stack/amplify-cryptobotweb-prod-210925/f9fa95a1-04ba-11ec-828f-069505144576",
+      "AmplifyAppId": "d9aslkcl2ym0j"
     },
     "categories": {
       "auth": {
-        "cryptobotweb25f5d476": {}
+        "cryptobotweb8ba6099a": {}
       }
     }
   }
