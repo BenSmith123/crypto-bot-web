@@ -6,6 +6,9 @@ import { onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 const App = (props) => {
 
+  // generate random new user ID as uniqueID before overriding with email
+  const newUserId = (Math.floor(Math.random() * 100000000)).toString();
+
   useEffect(() => onAuthUIStateChange((nextAuthState, authData) => {
     props.setUser(authData);
   }), []);
@@ -20,9 +23,9 @@ const App = (props) => {
           formFields={[
             {
               type: 'username',
-              label: 'ID',
-              // value: Date.now(),
-              value: (Math.floor(Math.random() * 100000000)).toString(),
+              label: '',
+              placeholder: `ID: ${newUserId}`,
+              value: newUserId,
               disabled: true,
               inputProps: { required: true },
             },
