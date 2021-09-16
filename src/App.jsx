@@ -9,8 +9,9 @@ import {
   AiOutlineUser,
   AiOutlineSmile,
   AiOutlineMenuUnfold,
-  AiOutlineInfoCircle,
-  // AiOutlineLock,
+  // AiOutlineInfoCircle,
+  AiOutlineLogin,
+  AiOutlineLogout,
 } from 'react-icons/ai';
 import awsconfig from './aws-exports';
 
@@ -23,8 +24,8 @@ import Commands from './views/Commands';
 import Changelog from './views/Changelog';
 import Signin from './views/Signin';
 
-import { getChangelog, getCommands } from './api-interface';
-import config from './data/exampleConfiguration.json';
+import { getChangelog, getCommands, getUserConfiguration } from './api-interface';
+import { getUserSession } from './helpers/userSession';
 
 
 Amplify.configure(awsconfig); // TODO - replace with API call
@@ -38,17 +39,16 @@ export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < mobileScreenWidth);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [user, setUser] = useState(null);
+  const [userSession, setUserSession] = useState(null);
 
   const [apiChangelog, setApiChangelog] = useState(null);
   const [apiCommands, setApiCommands] = useState(null);
-
-  console.log(user);
+  const [apiUserConfig, setApiUserConfig] = useState(null);
 
 
   function handleSignout() {
-    Auth.signOut(user);
-    setUser(null);
+    Auth.signOut();
+    setUserSession(null);
   }
 
 
@@ -66,21 +66,29 @@ export default function App() {
 
     window.addEventListener('resize', handleResize);
 
-    setUser(await Auth.currentAuthenticatedUser());
-
     // stack promises and make all API calls asynchronously
     const apiPromiseArr = [
       getChangelog(),
       getCommands(),
+      getUserSession(),
     ];
 
-    const [changelog, commands] = await Promise.all(apiPromiseArr);
+    const [changelog, commands, user] = await Promise.all(apiPromiseArr);
 
     // load all API data upfront
     setApiChangelog(changelog);
     setApiCommands(commands);
 
+    // if a session is open, store user auth
+    if (user) {
+      setUserSession(user);
+      getUserConfiguration(user.auth.accessToken).then((userConfig) => {
+        setApiUserConfig(userConfig);
+      });
+    }
+
     return () => window.removeEventListener('resize', handleResize);
+
   }, []);
 
 
@@ -151,25 +159,25 @@ export default function App() {
               onClick={navItemSelected}
             />
 
-            <NavItem
+            {/* <NavItem
               title="About"
               link="/about"
               icon={<AiOutlineInfoCircle className="icon" />}
               onClick={navItemSelected}
-            />
+            /> */}
 
-            {user ? (
+            {userSession ? (
               <NavItem
                 title="Sign out"
                 link="/signin"
-                icon={<AiOutlineInfoCircle className="icon" />}
+                icon={<AiOutlineLogout className="icon" />}
                 onClick={handleSignout}
               />
             ) : (
               <NavItem
                 title="Sign in"
                 link="/signin"
-                icon={<AiOutlineInfoCircle className="icon" />}
+                icon={<AiOutlineLogin className="icon" />}
                 onClick={navItemSelected}
               />
             )}
@@ -186,7 +194,7 @@ export default function App() {
 
             <Switch>
               <Route path="/account">
-                <Account config={config} />
+                <Account config={apiUserConfig} />
               </Route>
 
               <Route path="/crypto-assistant">
@@ -198,7 +206,7 @@ export default function App() {
               </Route>
 
               <Route path="/signin">
-                <Signin setUser={setUser} />
+                <Signin setUser={setUserSession} />
               </Route>
 
               <Route path="/">
