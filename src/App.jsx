@@ -25,7 +25,7 @@ import Changelog from './views/Changelog';
 import Signin from './views/Signin';
 
 import { getChangelog, getCommands, getUserConfiguration } from './api-interface';
-import { getUserSession } from './helpers/userSession';
+import { getSessionFromAmplify, formatUserAuth } from './helpers/userSession';
 
 
 Amplify.configure(awsconfig); // TODO - replace with API call
@@ -46,11 +46,27 @@ export default function App() {
   const [apiUserConfig, setApiUserConfig] = useState(null);
 
 
-  function handleSignout() {
-    Auth.signOut();
+  async function handleSignout() {
+    // await to ensure the signin component doesn't try to re-render user is signed out
+    await Auth.signOut();
     setUserSession(null);
+    setApiUserConfig(null); // remove user configuration data
   }
 
+  const handleUserLogin = (user) => {
+    if (!user) { return; }
+
+    const userFormatted = formatUserAuth(user);
+
+    setUserSession(userFormatted);
+
+    // no need to await, set data when available
+    getUserConfiguration(userFormatted.auth.access_token)
+      .then((userConfig) => {
+        setApiUserConfig(userConfig);
+      });
+    // .catch((err) => { console.log(err); });
+  };
 
   useEffect(async () => {
 
@@ -70,7 +86,7 @@ export default function App() {
     const apiPromiseArr = [
       getChangelog(),
       getCommands(),
-      getUserSession(),
+      getSessionFromAmplify(),
     ];
 
     const [changelog, commands, user] = await Promise.all(apiPromiseArr);
@@ -80,12 +96,7 @@ export default function App() {
     setApiCommands(commands);
 
     // if a session is open, store user auth
-    if (user) {
-      setUserSession(user);
-      getUserConfiguration(user.auth.accessToken).then((userConfig) => {
-        setApiUserConfig(userConfig);
-      });
-    }
+    handleUserLogin(user);
 
     return () => window.removeEventListener('resize', handleResize);
 
@@ -206,7 +217,7 @@ export default function App() {
               </Route>
 
               <Route path="/signin">
-                <Signin setUser={setUserSession} />
+                <Signin setUser={handleUserLogin} userSession={userSession} />
               </Route>
 
               <Route path="/">

@@ -3,7 +3,10 @@ const { Auth } = require('aws-amplify');
 
 
 // simplify the auth data before storing
-function storeUserAuth(userAuth) {
+function formatUserAuth(userAuth) {
+
+  if (!userAuth) { return null; }
+
   return {
     username: userAuth.username,
     email: userAuth.attributes.email,
@@ -17,18 +20,22 @@ function storeUserAuth(userAuth) {
 }
 
 
-async function getUserSession() {
-
+/**
+ * Get user session from AWS Amplify
+ * NOTE - this is only used when site is loaded to check if user is logged in
+ *
+ * @returns {Promise<Object>}
+ */
+async function getSessionFromAmplify() {
   try {
-    return storeUserAuth(await Auth.currentAuthenticatedUser());
+    return await Auth.currentAuthenticatedUser();
   } catch (err) {
-    console.log(err); // TODO
     return null;
   }
-
 }
 
 
 module.exports = {
-  getUserSession,
+  formatUserAuth,
+  getSessionFromAmplify,
 };
