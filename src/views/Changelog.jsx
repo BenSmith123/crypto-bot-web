@@ -25,25 +25,25 @@ export default function Changelog(props) {
       <div className="pageContent-textLeft changelogPage">
 
         {apiChangelog.logs.map((log) => (
-          <>
+          <div key={log.version}>
             <h2>{log.version}</h2>
 
-            {log.changes && log.changes.map((a) => (
-              <li>
+            {log.changes && log.changes.map((text) => (
+              <li key={text}>
                 -
                 {' '}
-                {a}
+                {text}
               </li>
             ))}
 
-            {log.devChanges && log.devChanges.map((a) => (
+            {log.devChanges && log.devChanges.map((text) => (
 
-              <li className="devLog">
+              <li className="devLog" key={text}>
                 {'- [maintenance] '}
-                {a}
+                {text}
               </li>
             ))}
-          </>
+          </div>
         )).reverse()}
 
       </div>

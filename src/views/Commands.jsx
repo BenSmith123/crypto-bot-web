@@ -27,7 +27,7 @@ export default function Commands(props) {
       <div className="pageContent-textLeft">
 
         {apiCommands.commands.map((command) => (
-          <div className="commandItem">
+          <div className="commandItem" key={command.name}>
             <h3>
               /
               {command.name}
@@ -38,14 +38,14 @@ export default function Commands(props) {
             </p>
 
             {command.options && (
-            <p>
+            <>
               <b>Options:</b>
 
               <div className="optionText">
 
                 {command.options.map((option) => (
 
-                  <li>
+                  <li key={option.name}>
                     {option.required && (
                       <LabelOrange text="Required" />
                     )}
@@ -60,7 +60,7 @@ export default function Commands(props) {
 
                 ))}
               </div>
-            </p>
+            </>
             )}
 
           </div>
