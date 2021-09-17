@@ -35,7 +35,7 @@ async function getSessionFromAmplify() {
 }
 
 
-module.exports = {
+export {
   formatUserAuth,
   getSessionFromAmplify,
 };
