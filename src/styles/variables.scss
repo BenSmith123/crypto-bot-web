@@ -21,3 +21,15 @@ $featureColour: #0084ff;
 $colourBlue: #0084ff;
 $colourGreen: #00b35f;
 $colourOrange: rgb(255, 115, 0);
+
+:root {
+    --amplify-background-color: #2f333a;
+    --amplify-primary-color: #0084ff;
+    --amplify-secondary-color: #0084ff;
+    --amplify-primary-tint: #00aeff; /* text hover colour */
+    --amplify-primary-shade: #0084ff; /* text pressed colour */
+}
+
+amplify-authenticator {
+    --container-align: top !important;
+}

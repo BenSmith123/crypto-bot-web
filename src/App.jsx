@@ -54,7 +54,7 @@ export default function App() {
   }
 
   const handleUserLogin = (user) => {
-    if (!user) { return; }
+    if (!user || !user.attributes) { return; }
 
     const userFormatted = formatUserAuth(user);
 

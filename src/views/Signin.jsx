@@ -4,6 +4,10 @@ import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from '@aws-amplify
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 
+const sharedStyles = {
+  marginTop: 120,
+};
+
 const App = (props) => {
 
   const { userSession, setUser } = props;
@@ -21,18 +25,21 @@ const App = (props) => {
 
   return authState === AuthState.SignedIn && userSession ? (
 
-    <div className="App">
-      <h1>hello {userSession.nameFirst}</h1>
-    </div>
+    <>
+      <h1>Welcome, {userSession.nameFirst}!</h1>
+
+      <p>Your account is being set up.</p>
+    </>
 
   ) : (
 
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <>
       <AmplifyAuthenticator usernameAlias="email">
         <AmplifySignUp
           slot="sign-up"
           headerText="Create account"
           // usernameAlias="email"
+          style={sharedStyles}
           formFields={[
             {
               type: 'username',
@@ -101,6 +108,7 @@ const App = (props) => {
           slot="sign-in"
           headerText="Sign in"
           usernameAlias="email"
+          style={sharedStyles}
           formFields={[
             {
               type: 'email',
@@ -118,7 +126,7 @@ const App = (props) => {
         />
 
       </AmplifyAuthenticator>
-    </div>
+    </>
   );
 
 };
