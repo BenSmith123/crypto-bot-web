@@ -13,7 +13,7 @@ export default function CryptoDescription(props) {
   return (
     <>
       <AppContext.Consumer>
-        {(isMobile) => (
+        {({ isMobile }) => (
           <>
             <AiOutlineInfoCircle onClick={() => setDisplay(true)} />
             {(!isMobile || display) && <p>{text}</p>}

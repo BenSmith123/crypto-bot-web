@@ -201,7 +201,7 @@ export default function App() {
         <div className="pageContent">
 
           {/* provide app context to all pages */}
-          <AppContext.Provider value={isMobile}>
+          <AppContext.Provider value={{ isMobile, accessToken: userSession?.auth?.access_token }}>
 
             <Switch>
               <Route path="/account">
