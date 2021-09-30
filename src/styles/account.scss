@@ -17,7 +17,8 @@
 }
 
 .button {
-	background: none;
+	cursor: pointer;
+	background: #a3a3a323;
 	// border-radius: 4px;
 	height: fit-content;
 	margin: 12px 0 12px 0;
@@ -36,15 +37,14 @@
 	&-red {
 		@extend .button;
 		border: 1px solid #ee5757;
-		color: #ee5757;
+		background-color: #ee57571f;
 	}
 
 	&-blue {
 		@extend .button;
 		// background-color: rgb(0, 132, 255);
-		background: none;
 		border: 1px solid $featureColour;
-		color: $featureColour;
+		background-color: #0084ff2d;
 	}
 }
 
@@ -115,10 +115,15 @@ button:focus {
 .editCryptoContainer {
 	text-align: left;
 	padding: 16px;
-	border: 1px solid $featureColour;
+	border: 1px solid $textColour;
 	border-radius: 0 0 4px 4px;
 	border-top-width: 0px;
 	height: fit-content;
+
+	&-holding {
+		@extend .editCryptoContainer;
+		border: 1px solid $featureColour;
+	}
 
 	p {
 		margin: 0;
@@ -153,6 +158,12 @@ button:focus {
 		font-size: medium;
 		margin: 4px 0 4px 0;
 	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .validationError {

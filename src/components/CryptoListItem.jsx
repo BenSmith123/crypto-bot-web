@@ -79,7 +79,7 @@ export default function CryptoListItem(props) {
       transitionTime={160}
     >
 
-      <form className="editCryptoContainer" onSubmit={handleSubmit(onSubmit)}>
+      <form className={isHolding ? 'editCryptoContainer-holding' : 'editCryptoContainer'} onSubmit={handleSubmit(onSubmit)}>
 
         {/* STATIC DATA */}
 
@@ -183,6 +183,14 @@ export default function CryptoListItem(props) {
         {/* BUTTONS */}
 
 
+        <button
+          type="submit"
+          disabled={!isDirty || !isValid}
+          className={isDirty && isValid ? 'button-blue' : 'button'}
+        >
+          Save
+        </button>
+
         {isHolding ? (
           <Popup
             {...popupOptions}
@@ -244,7 +252,7 @@ export default function CryptoListItem(props) {
         ) : (
           <Popup
             {...popupOptions}
-            trigger={(<button type="button" className="button">Pause</button>)}
+            trigger={(<button type="button" className="button-blue">Pause</button>)}
           >
             {(close) => (
               <PopupDialog
@@ -262,7 +270,7 @@ export default function CryptoListItem(props) {
 
         <Popup
           {...popupOptions}
-          trigger={(<button type="button" className="button">Remove</button>)}
+          trigger={(<button type="button" className="button-blue">Remove</button>)}
         >
           {(close) => (
             <PopupDialog
@@ -275,15 +283,6 @@ export default function CryptoListItem(props) {
             />
           )}
         </Popup>
-
-
-        <button
-          type="submit"
-          disabled={!isDirty || !isValid}
-          className={isDirty && isValid ? 'button-blue' : 'button'}
-        >
-          Save
-        </button>
 
       </form>
 
