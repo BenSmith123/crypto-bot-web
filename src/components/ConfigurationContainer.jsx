@@ -16,8 +16,8 @@ import { SnackbarStyles } from '../styles/components/_inline';
 
 
 function useForceUpdate() {
-  const [value, setValue] = useState(0);
-  return () => setValue((value) => value + 1);
+  const [value, setValue] = useState(0); // eslint-disable-line
+  return () => setValue((value) => value + 1); // eslint-disable-line
 }
 
 
@@ -89,7 +89,12 @@ export default function ConfigurationContainer(props) {
         <div>Estimate total funds: $... USD ($... NZD)</div>
 
         {Object.keys(config.records).map((record) => (
-          <CryptoListItem key={record} recordName={record} config={config} updateConfig={updateConfig} />
+          <CryptoListItem
+            key={record}
+            recordName={record}
+            config={config}
+            updateConfig={updateConfig}
+          />
         ))}
 
         <div className="cryptoItemsButtons">
