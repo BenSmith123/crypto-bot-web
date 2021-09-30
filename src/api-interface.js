@@ -49,8 +49,36 @@ async function getUserConfiguration(accessToken) {
 }
 
 
+/**
+ * POST /user/configuration
+ *
+ * @param {string} accessToken
+ * @param {object} data - request body
+ * @returns
+ */
+async function updateUserConfiguration(accessToken, data) {
+
+  const reqOptions = {
+    url: WEB_API_URL + ENDPOINTS.userConfiguration,
+    method: 'POST',
+    data,
+    headers: {
+      accessToken,
+    },
+  };
+
+  try {
+    const a = await axios(reqOptions);
+    return a.data;
+  } catch (err) {
+    return err.message; // TODO
+  }
+}
+
+
 export {
   getChangelog,
   getCommands,
   getUserConfiguration,
+  updateUserConfiguration,
 };

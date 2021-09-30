@@ -31,8 +31,34 @@ async function isOneOrMore(n, isRequired = true) {
 }
 
 
+/**
+ * Returns string of form validation error or null if no error
+ *
+ * @param {object} errors
+ * @param {string} recordName - BTC, DOGE, etc.
+ * @param {string} fieldKey - 'buyPercentage', 'sellPercentage' etc.
+ * @returns
+ */
+function getRecordError(errors, recordName, fieldKey) {
+  // if the field doesn't exist in the .record.BTC.thresholds,
+  // check if the key is in .record.BTC.
+  if (!Object.keys(errors).length) return null;
+
+  if (errors?.records?.[recordName]?.[fieldKey]) {
+    return errors?.records?.[recordName]?.[fieldKey].message;
+  }
+
+  if (errors?.records?.[recordName].thresholds?.[fieldKey]) {
+    return errors?.records?.[recordName].thresholds?.[fieldKey].message;
+  }
+
+  return null;
+}
+
+
 export {
   isNegativeNum,
   isPositiveNum,
   isOneOrMore,
+  getRecordError,
 };

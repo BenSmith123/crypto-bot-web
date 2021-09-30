@@ -1,45 +1,46 @@
 
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useSnackbar } from 'react-simple-snackbar';
 import Collapsible from 'react-collapsible';
 import { useForm } from 'react-hook-form';
 import Popup from 'reactjs-popup';
 
+import AppContext from './AppContext';
+
 import PopupDialog from './PopupDialog';
 import CryptoIcon from './CryptoIcon';
-
 import { Label, LabelGreen } from './Label';
+import { SnackbarStyles } from '../styles/components/_inline';
 
-import { isNegativeNum, isPositiveNum, isOneOrMore } from '../helpers/validations';
+import { updateUserConfiguration } from '../api-interface';
+import {
+  isNegativeNum, isPositiveNum, isOneOrMore, getRecordError,
+} from '../helpers/validations';
 
 
-/**
- * @param {object} errors
- * @param {string} recordName - BTC, DOGE, etc.
- * @param {string} fieldKey - 'buyPercentage', 'sellPercentage' etc.
- * @returns
- */
-function getRecordError(errors, recordName, fieldKey) {
-  // if the field doesn't exist in the .record.BTC.thresholds,
-  // check if the key is in .record.BTC.
-  if (!Object.keys(errors).length) return null;
+const popupOptions = {
+  position: 'center center',
+  modal: true,
+  nested: true,
+};
 
-  if (errors?.records?.[recordName]?.[fieldKey]) {
-    return errors?.records?.[recordName]?.[fieldKey].message;
-  }
-
-  if (errors?.records?.[recordName].thresholds?.[fieldKey]) {
-    return errors?.records?.[recordName].thresholds?.[fieldKey].message;
-  }
-
-  return null;
-}
+// actions for updating configuration
+const ACTIONS = {
+  SELL: 'SELL',
+  REMOVE: 'REMOVE',
+  PAUSE: 'PAUSE',
+};
 
 
 function CryptoListItem(props) {
 
-  const { config } = props;
+  const { config, updateConfig } = props;
+
+  const [openSnackbar] = useSnackbar(SnackbarStyles);
+
+  const { accessToken } = useContext(AppContext);
 
   const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
     mode: 'onChange',
@@ -48,7 +49,15 @@ function CryptoListItem(props) {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    console.log('here', data);
+
+    openSnackbar('Saving...');
+
+    const results = await updateUserConfiguration(accessToken, data);
+
+    openSnackbar('Saved!', 1000000);
+  };
 
   const { recordName } = props;
   const record = config.records[recordName];
@@ -93,6 +102,7 @@ function CryptoListItem(props) {
             placeholder="optional"
             {...register(`records.${recordName}.limitUSDT`, {
               validate: (v) => isOneOrMore(Number(v), false),
+              valueAsNumber: true,
             })}
           />
         </div>
@@ -109,6 +119,7 @@ function CryptoListItem(props) {
             type="number"
             {...register(`${registerFieldName}.sellPercentage`, {
               validate: (v) => isPositiveNum(Number(v)),
+              valueAsNumber: true,
             })}
           />
         </div>
@@ -123,6 +134,7 @@ function CryptoListItem(props) {
             type="number"
             {...register(`${registerFieldName}.buyPercentage`, {
               validate: (v) => isNegativeNum(Number(v)),
+              valueAsNumber: true,
             })}
           />
         </div>
@@ -138,6 +150,7 @@ function CryptoListItem(props) {
             placeholder="optional"
             {...register(`${registerFieldName}.stopLossPercentage`, {
               validate: (v) => isNegativeNum(Number(v), false),
+              valueAsNumber: true,
             })}
           />
         </div>
@@ -156,19 +169,20 @@ function CryptoListItem(props) {
             placeholder="optional"
             {...register(`${registerFieldName}.warningPercentage`, {
               validate: (v) => isNegativeNum(Number(v), false),
+              valueAsNumber: true,
             })}
           />
         </div>
         <div className="validationError">{getRecordError(errors, recordName, 'warningPercentage')}</div>
         <p>The decrease in % relative to the last purchase price</p>
 
+
         {/* BUTTONS */}
+
 
         {isHolding ? (
           <Popup
-            position="center center"
-            modal
-            nested
+            {...popupOptions}
             trigger={(<button type="button" className="button-red">Sell</button>)}
           >
             {(close) => (
@@ -192,9 +206,7 @@ function CryptoListItem(props) {
           </Popup>
         ) : (
           <Popup
-            position="center center"
-            modal
-            nested
+            {...popupOptions}
             trigger={(<button type="button" className="button-red">Pause</button>)}
           >
             {(close) => (
@@ -212,9 +224,7 @@ function CryptoListItem(props) {
 
         {isPaused ? (
           <Popup
-            position="center center"
-            modal
-            nested
+            {...popupOptions}
             trigger={(<button type="button" className="button-red">Unpause</button>)}
           >
             {(close) => (
@@ -230,9 +240,7 @@ function CryptoListItem(props) {
           </Popup>
         ) : (
           <Popup
-            position="center center"
-            modal
-            nested
+            {...popupOptions}
             trigger={(<button type="button" className="button">Pause</button>)}
           >
             {(close) => (
@@ -242,16 +250,15 @@ function CryptoListItem(props) {
                 title="Are you sure?"
                 confirmText="Pause"
                 description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => console.log('hello')}
+                acceptFunc={() => updateConfig('pause', recordName)}
               />
             )}
           </Popup>
         )}
 
+
         <Popup
-          position="center center"
-          modal
-          nested
+          {...popupOptions}
           trigger={(<button type="button" className="button">Remove</button>)}
         >
           {(close) => (
@@ -261,34 +268,19 @@ function CryptoListItem(props) {
               title="Are you sure?"
               confirmText="Remove"
               description={`Removing ${recordName} will stop the bot from monitoring/trading in it but will not sell`}
-              acceptFunc={() => console.log('hello')}
+              acceptFunc={() => updateConfig('remove', recordName)}
             />
           )}
         </Popup>
 
-        <Popup
-          position="center center"
-          modal
-          nested
-          trigger={(
-            <button
-              type="submit"
-              disabled={!isDirty || !isValid}
-              className={isDirty && isValid ? 'button-blue' : 'button'}
-            >
-              Save
-            </button>
-)}
+
+        <button
+          type="submit"
+          disabled={!isDirty || !isValid}
+          className={isDirty && isValid ? 'button-blue' : 'button'}
         >
-          {(close) => (
-            <PopupDialog
-              close={close}
-              title="Saving..."
-              acceptFunc={() => console.log('hello')}
-            />
-          )}
-        </Popup>
-
+          Save
+        </button>
 
       </form>
 
@@ -315,8 +307,40 @@ function CryptoListItemHeader(props) {
 }
 
 
+function useForceUpdate() {
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
+}
+
+
 export default function ConfigurationContainer(props) {
+
   const { config } = props;
+  const forceUpdate = useForceUpdate();
+
+  // function to update and publish the config for all action buttons
+  const updateConfig = (action, recordName) => {
+
+    switch (action) { // eslint-disable-line default-case
+      case ACTIONS.SELL: {
+        config.records[recordName].forceSell = true;
+        break;
+      }
+      case ACTIONS.PAUSE: {
+        config.records[recordName].isPaused = true; // TODO - this isn't supported in the cryptobot!
+        break;
+      }
+      case ACTIONS.REMOVE: {
+        delete config.records[recordName];
+        break;
+      }
+    }
+
+    // TODO - publish config, display pop-up
+
+    forceUpdate(); // force component to re-render
+  };
+
 
   if (!config) {
     return (<div>Loading...</div>);
@@ -336,7 +360,7 @@ export default function ConfigurationContainer(props) {
         <div>Estimate total funds: $... USD ($... NZD)</div>
 
         {Object.keys(config.records).map((record) => (
-          <CryptoListItem key={record} recordName={record} config={config} />
+          <CryptoListItem key={record} recordName={record} config={config} updateConfig={updateConfig} />
         ))}
 
 

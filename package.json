@@ -29,6 +29,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "4.0.3",
+    "react-simple-snackbar": "^1.1.11",
     "reactjs-popup": "^2.0.5"
   },
   "devDependencies": {

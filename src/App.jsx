@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SnackbarProvider from 'react-simple-snackbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Amplify, { Auth } from 'aws-amplify';
@@ -203,28 +204,32 @@ export default function App() {
           {/* provide app context to all pages */}
           <AppContext.Provider value={{ isMobile, accessToken: userSession?.auth?.access_token }}>
 
-            <Switch>
-              <Route path="/account">
-                <Account config={apiUserConfig} />
-              </Route>
+            <SnackbarProvider>
 
-              <Route path="/crypto-assistant">
-                <Commands apiCommands={apiCommands} />
-              </Route>
+              <Switch>
+                <Route path="/account">
+                  <Account config={apiUserConfig} />
+                </Route>
 
-              <Route path="/changelog">
-                <Changelog apiChangelog={apiChangelog} />
-              </Route>
+                <Route path="/crypto-assistant">
+                  <Commands apiCommands={apiCommands} />
+                </Route>
 
-              <Route path="/signin">
-                <Signin setUser={handleUserLogin} userSession={userSession} />
-              </Route>
+                <Route path="/changelog">
+                  <Changelog apiChangelog={apiChangelog} />
+                </Route>
 
-              <Route path="/">
-                {/* TODO */}
-                <Topics />
-              </Route>
-            </Switch>
+                <Route path="/signin">
+                  <Signin setUser={handleUserLogin} userSession={userSession} />
+                </Route>
+
+                <Route path="/">
+                  {/* TODO */}
+                  <Topics />
+                </Route>
+              </Switch>
+
+            </SnackbarProvider>
 
           </AppContext.Provider>
 
