@@ -10,20 +10,13 @@ import AppContext from './AppContext';
 import PopupDialog from './PopupDialog';
 import CryptoListItemHeader from './CryptoListItemHeader';
 
-import { SnackbarStyles } from '../styles/components/_inline';
-
 import { updateUserConfiguration } from '../api-interface';
 import {
   isNegativeNum, isPositiveNum, isOneOrMore, getRecordError,
 } from '../helpers/validations';
 
-
-// actions for updating configuration
-const ACTIONS = {
-  SELL: 'SELL',
-  REMOVE: 'REMOVE',
-  PAUSE: 'PAUSE',
-};
+import { CONFIG_ACTIONS } from '../helpers/constants';
+import { SnackbarStyles } from '../styles/components/_inline';
 
 
 const popupOptions = {
@@ -41,7 +34,12 @@ export default function CryptoListItem(props) {
 
   const { accessToken } = useContext(AppContext);
 
-  const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty, isValid },
+  } = useForm({
     mode: 'onChange',
     defaultValues: {
       ...config,
@@ -49,13 +47,19 @@ export default function CryptoListItem(props) {
   });
 
   const onSubmit = async (data) => {
-    console.log('here', data);
 
     openSnackbar('Saving...');
 
     const results = await updateUserConfiguration(accessToken, data);
 
-    openSnackbar('Saved!', 1000000);
+    if (results.error) {
+      openSnackbar(`Error: ${results.errMessage}`);
+      return;
+    }
+
+    reset(data); // reset form (sets isDirty false etc.)
+
+    openSnackbar('Saved!');
   };
 
   const { recordName } = props;
@@ -198,24 +202,24 @@ export default function CryptoListItem(props) {
                       monitor <b>{recordName}</b> and buy back in when the buy percentage is met.
                     </p>
                   </>
-  )}
-                acceptFunc={() => console.log('hello')}
+                )}
+                acceptFunc={() => updateConfig(CONFIG_ACTIONS.SELL, recordName)}
               />
             )}
           </Popup>
         ) : (
           <Popup
             {...popupOptions}
-            trigger={(<button type="button" className="button-red">Pause</button>)}
+            trigger={(<button type="button" className="button-red">Buy</button>)}
           >
             {(close) => (
               <PopupDialog
                 close={close}
                 questionDialog
                 title="Are you sure?"
-                confirmText="Sell"
-                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => console.log('hello')}
+                confirmText="Buy"
+                description={(<p>The bot will buy <b>{recordName}</b> when it is next run.</p>)}
+                acceptFunc={() => updateConfig(CONFIG_ACTIONS.BUY, recordName)}
               />
             )}
           </Popup>
@@ -233,7 +237,7 @@ export default function CryptoListItem(props) {
                 title="Are you sure?"
                 confirmText="Unpause"
                 description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => console.log('hello')}
+                acceptFunc={() => updateConfig(CONFIG_ACTIONS.UNPAUSE, recordName)}
               />
             )}
           </Popup>
@@ -249,7 +253,7 @@ export default function CryptoListItem(props) {
                 title="Are you sure?"
                 confirmText="Pause"
                 description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => updateConfig(ACTIONS.PAUSE, recordName)}
+                acceptFunc={() => updateConfig(CONFIG_ACTIONS.PAUSE, recordName)}
               />
             )}
           </Popup>
@@ -267,7 +271,7 @@ export default function CryptoListItem(props) {
               title="Are you sure?"
               confirmText="Remove"
               description={`Removing ${recordName} will stop the bot from monitoring/trading in it but will not sell`}
-              acceptFunc={() => updateConfig(ACTIONS.REMOVE, recordName)}
+              acceptFunc={() => updateConfig(CONFIG_ACTIONS.REMOVE, recordName)}
             />
           )}
         </Popup>

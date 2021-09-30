@@ -71,7 +71,10 @@ async function updateUserConfiguration(accessToken, data) {
     const a = await axios(reqOptions);
     return a.data;
   } catch (err) {
-    return err.message; // TODO
+    return {
+      error: true,
+      errMessage: err.message,
+    };
   }
 }
 

@@ -27,17 +27,15 @@ import Signin from './views/Signin';
 
 import { getChangelog, getCommands, getUserConfiguration } from './api-interface';
 import { getSessionFromAmplify, formatUserAuth } from './helpers/userSession';
+import { MOBILE_SCREEN_WIDTH } from './helpers/constants';
 
 
 Amplify.configure(awsconfig); // TODO - replace with API call
 
 
-const mobileScreenWidth = 918; // width in px that is mobile
-
-
 export default function App() {
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < mobileScreenWidth);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_SCREEN_WIDTH);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [userSession, setUserSession] = useState(null);
@@ -72,7 +70,7 @@ export default function App() {
   useEffect(async () => {
 
     function handleResize() {
-      if (window.innerWidth < mobileScreenWidth) {
+      if (window.innerWidth < MOBILE_SCREEN_WIDTH) {
         setIsMobile(true);
       } else {
         setIsMobile(false);
