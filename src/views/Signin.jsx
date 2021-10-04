@@ -5,7 +5,7 @@ import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 
 
 const sharedStyles = {
-  marginTop: 120,
+  marginTop: '20%',
 };
 
 const App = (props) => {
@@ -19,6 +19,10 @@ const App = (props) => {
 
 
   useEffect(() => onAuthUIStateChange((nextAuthState, authData) => {
+
+    // user has signed in!
+    window.scrollTo({ top: 0 });
+
     setAuthState(nextAuthState);
     setUser(authData);
   }), []);

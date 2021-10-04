@@ -28,7 +28,7 @@ class ConfigurationContainer extends React.Component {
   static getDerivedStateFromProps(props, state) {
     // update component state when config hasn't been loaded yet (API response from parent)
     if (state.config === null) {
-      state.config = props.config;
+      state.config = props.config; // eslint-disable-line no-param-reassign
     }
     return state;
   }
@@ -55,11 +55,11 @@ class ConfigurationContainer extends React.Component {
           break;
         }
         case CONFIG_ACTIONS.PAUSE: {
-          updatedConfig.records[recordName].isPaused = true; // TODO - this isn't supported in the cryptobot!
+          updatedConfig.records[recordName].isPaused = true;
           break;
         }
         case CONFIG_ACTIONS.UNPAUSE: {
-          updatedConfig.records[recordName].isPaused = false; // TODO - this too ^
+          updatedConfig.records[recordName].isPaused = false;
           break;
         }
         case CONFIG_ACTIONS.REMOVE: {
