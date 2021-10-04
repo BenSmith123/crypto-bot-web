@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable */
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
+import AppContext from '../components/AppContext';
 import { LabelBlue } from '../components/Label';
+import Loader from '../components/Loader';
 import ConfigurationContainer from '../components/ConfigurationContainer';
 
 
@@ -43,6 +46,8 @@ const PAGES = {
 export default function Account(props) {
 
   const [page, setPage] = useState(PAGES.configuration);
+  const { isSignedIn } = useContext(AppContext);
+
   const { config } = props;
 
   const { register, control, handleSubmit } = useForm({
@@ -66,27 +71,52 @@ export default function Account(props) {
     <div className="accountPage">
       <h1>Account</h1>
 
-      {/* <h2>Bot configuration</h2> */}
+      
 
-      <div className="tabButtons">
-        <button type="button" onClick={() => setPage(PAGES.configuration)}>
-          Bot configuration
-        </button>
-        <button type="button" onClick={() => setPage(PAGES.transactions)}>
-          Transactions
-        </button>
-      </div>
-
-      {page === PAGES.configuration ? (
+      {isSignedIn && config ? (
         <>
-          <ConfigurationContainer config={config} />
+          <div className="tabButtons">
+            <button type="button" onClick={() => setPage(PAGES.configuration)}>
+              Bot configuration
+            </button>
+            <button type="button" onClick={() => setPage(PAGES.transactions)}>
+              Transactions
+            </button>
+          </div>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* <CryptoForm /> */}
-          </form>
+          {/* user is signed in, show config or transactions page */}
+          {page === PAGES.configuration ? (
+            <>
+              <ConfigurationContainer config={config} />
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {/* <CryptoForm /> */}
+              </form>
+            </>
+          ) : (
+            <>
+              <p>Page is currently under development :)</p>
+              <Loader/>
+            </>
+          )}
         </>
+
       ) : (
-        <div>transactions</div>
+
+        /* user is either not logged in or still loading */
+        <>
+          {!isSignedIn ? (
+            <p>
+              Please <Link to="/signin">Sign in</Link> to view your account.
+              {/*
+                TODO add button here to allow users to see to preview app!
+                i.e. load mock 'config' from JSON?
+              */}
+            </p>
+          ) : (
+            <Loader/>
+          )}
+        </>
       )}
 
     </div>
