@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import Loader from '../components/Loader';
 
 export default function Changelog(props) {
 
@@ -10,7 +10,7 @@ export default function Changelog(props) {
 
     if (!apiChangelog) {
       return (
-        <div>Loading...</div>
+        <Loader />
       );
     }
 

@@ -1,6 +1,7 @@
 
 import React from 'react';
 
+import Loader from '../components/Loader';
 import { LabelOrange } from '../components/Label';
 import image from '../assets/crypto-assistant-icon.jpg';
 
@@ -13,7 +14,7 @@ export default function Commands(props) {
 
     if (!apiCommands) {
       return (
-        <div>Loading...</div>
+        <Loader />
       );
     }
 
