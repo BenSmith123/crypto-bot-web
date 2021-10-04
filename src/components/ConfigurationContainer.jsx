@@ -68,6 +68,14 @@ class ConfigurationContainer extends React.Component {
           updatedConfig.records = newRecords;
           break;
         }
+        case CONFIG_ACTIONS.PAUSE_ALL: {
+          updatedConfig.isPaused = true;
+          break;
+        }
+        case CONFIG_ACTIONS.UNPAUSE_ALL: {
+          updatedConfig.isPaused = false;
+          break;
+        }
       }
 
       // POST to publish config, display pop-up
@@ -118,12 +126,26 @@ class ConfigurationContainer extends React.Component {
 
           <div className="cryptoItemsButtons">
 
-            <button
-              type="button"
-              className="button-red"
-            >
-              Pause bot
-            </button>
+            {config.isPaused ? (
+              <>
+                <button
+                  type="button"
+                  className="button-red"
+                  onClick={() => updateConfig(CONFIG_ACTIONS.UNPAUSE_ALL)}
+                >
+                  Unpause bot
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="button-red"
+                onClick={() => updateConfig(CONFIG_ACTIONS.PAUSE_ALL)}
+              >
+                Pause bot
+              </button>
+            )}
+
 
             <button
               type="button"
