@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Popup from 'reactjs-popup';
 
 import AppContext from './AppContext';
-import PopupDialog from './PopupDialog';
+import { PopupDialog } from './PopupDialog';
 import CryptoListItemHeader from './CryptoListItemHeader';
 
 import { updateUserConfiguration } from '../api-interface';
@@ -75,6 +75,7 @@ export default function CryptoListItem(props) {
   return (
 
     <Collapsible
+      open={false} // TODO
       trigger={<CryptoListItemHeader record={record} recordName={recordName} />}
       transitionTime={160}
     >

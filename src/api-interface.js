@@ -6,7 +6,7 @@ import { WEB_API_URL } from './environment';
 const ENDPOINTS = {
   changelog: 'changelog',
   commands: 'commands',
-  listCrypto: 'list-available-crypto',
+  currencies: 'currencies', // TODO - this endpoint is renamed in next release
   userConfiguration: 'user/configuration',
 };
 
@@ -28,6 +28,11 @@ async function getCommands() {
   } catch (err) {
     return err.message; // TODO
   }
+}
+
+
+async function getCurrencies() {
+  return axios(WEB_API_URL + ENDPOINTS.currencies);
 }
 
 
@@ -82,6 +87,7 @@ async function updateUserConfiguration(accessToken, data) {
 export {
   getChangelog,
   getCommands,
+  getCurrencies,
   getUserConfiguration,
   updateUserConfiguration,
 };

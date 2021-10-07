@@ -175,3 +175,29 @@ input::-webkit-inner-spin-button {
 		text-align: right;
 	}
 }
+
+.newCurrencyContainer {
+	display: grid;
+	height: 256px;
+	overflow-y: scroll;
+	grid-template-columns: 1fr 1fr;
+	margin: 12px;
+
+	@media (min-width: $mobileWidth) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+.selectableCrypto {
+	display: flex;
+	align-items: center;
+	padding: 8px;
+	margin: 12px;
+	border: 1px solid rgb(146, 146, 146);
+	border-radius: 4px;
+	cursor: pointer;
+
+	img {
+		margin-right: 12px;
+	}
+}

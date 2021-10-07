@@ -6,6 +6,7 @@ import React from 'react';
 import { withSnackbar } from 'react-simple-snackbar';
 
 import AppContext from './AppContext';
+import CryptoSelect from './CryptoSelect';
 import CryptoListItem from './CryptoListItem';
 import { Label, LabelGreen } from './Label';
 
@@ -40,10 +41,11 @@ class ConfigurationContainer extends React.Component {
     const { openSnackbar } = this.props;
 
     const { config } = this.state;
-    const updatedConfig = { ...config };
 
     // function to update and publish the config for all action buttons
     const updateConfig = async (action, recordName) => {
+
+      const updatedConfig = { ...config };
 
       switch (action) { // eslint-disable-line default-case
         case CONFIG_ACTIONS.SELL: {
@@ -85,7 +87,6 @@ class ConfigurationContainer extends React.Component {
       const result = await updateUserConfiguration(accessToken, updatedConfig);
 
       if (result.error) {
-        console.log(result);
         openSnackbar(`Error: ${result.errMessage}`);
         return;
       }
@@ -95,6 +96,30 @@ class ConfigurationContainer extends React.Component {
       this.setState({ config: result });
 
       openSnackbar('Saved!');
+    };
+
+    const addNewCrypto = (record) => {
+
+      // TODO - ensure record isn't already in config
+
+      console.log('FIRED', record);
+
+      config.records.ZZZ = {
+        lastSellPrice: 0.29153,
+        orderDate: '30/05/2021, 03:00am',
+        timestamp: 1622300405158,
+        isHolding: false,
+        forceSell: false, // optional - flag set to force sell the crypto
+        forceBuy: false, // optional
+        thresholds: {
+          buyPercentage: -5,
+          sellPercentage: 3,
+          warningPercentage: -10,
+          stopLossPercentage: -10, // optional
+        },
+      };
+
+      this.setState({ config });
     };
 
 
@@ -146,16 +171,7 @@ class ConfigurationContainer extends React.Component {
               </button>
             )}
 
-
-            <button
-              type="button"
-              className="button-blue"
-              onClick={() => {
-                // append(defaultCurrencyValues);
-              }}
-            >
-              Add crypto currency
-            </button>
+            <CryptoSelect addNewCrypto={addNewCrypto} />
 
           </div>
 
