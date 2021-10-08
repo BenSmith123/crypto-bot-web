@@ -58,8 +58,10 @@ export default function Account(props) {
               </Route>
 
               <Route path="/account/transactions">
-                <p>Page is currently under development :)</p>
-                <Loader />
+                <div className="cryptoItemsContainer">
+                  <p>Page is currently under development :)</p>
+                  <Loader />
+                </div>
               </Route>
             </Switch>
 
