@@ -1,24 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import {
+  BrowserRouter as Router, Switch, Route, Link, NavLink,
+} from 'react-router-dom';
+
 
 import AppContext from '../components/AppContext';
 import Loader from '../components/Loader';
 import ConfigurationContainer from '../components/ConfigurationContainer';
 
 
-const PAGES = {
-  configuration: 'configuration',
-  transactions: 'transactions',
-};
-
-
 export default function Account(props) {
 
-  const [page, setPage] = useState(PAGES.configuration);
   const { isSignedIn } = useContext(AppContext);
-
   const { config } = props;
 
 
@@ -26,28 +21,50 @@ export default function Account(props) {
     <div className="accountPage">
       <h1>Account</h1>
 
+      {/* user is signed in, show config or transactions page */}
       {isSignedIn && config ? (
         <>
-          <div className="tabButtons">
-            <button type="button" onClick={() => setPage(PAGES.configuration)}>
-              Bot configuration
-            </button>
-            <button type="button" onClick={() => setPage(PAGES.transactions)}>
-              Transactions
-            </button>
-          </div>
+          <Router>
 
-          {/* user is signed in, show config or transactions page */}
-          {page === PAGES.configuration ? (
-            <>
-              <ConfigurationContainer config={config} />
-            </>
-          ) : (
-            <>
-              <p>Page is currently under development :)</p>
-              <Loader />
-            </>
-          )}
+            <div className="tabButtonContainer">
+
+              <NavLink
+                to="/account"
+                exact
+                className="tabButton"
+                activeClassName="tabButton-active"
+              >
+                <>
+                  Configuration
+                </>
+              </NavLink>
+
+              <NavLink
+                to="/account/transactions"
+                exact
+                className="tabButton"
+                activeClassName="tabButton-active"
+              >
+                <>
+                  Transactions
+                </>
+              </NavLink>
+            </div>
+
+
+            <Switch>
+              <Route path="/account" exact>
+                <ConfigurationContainer config={config} />
+              </Route>
+
+              <Route path="/account/transactions">
+                <p>Page is currently under development :)</p>
+                <Loader />
+              </Route>
+            </Switch>
+
+          </Router>
+
         </>
 
       ) : (

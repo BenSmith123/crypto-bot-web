@@ -5,14 +5,32 @@
 	height: 100%;
 }
 
-.tabButtons {
-	button {
+.tabButtonContainer {
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.tabButton {
+	height: auto;
+	background: #292d33;
+	border: none;
+	border-radius: 8px 8px 0 0;
+	color: white;
+	font-size: 16px;
+	padding: 12px;
+	text-decoration: none;
+	border-bottom: 1px solid $borderColour;
+
+	&-active {
+		@extend .tabButton;
+		color: $featureColour;
+		font-weight: bold;
+		border: 1px solid $borderColour;
+		border-bottom: inherit;
+		z-index: 200;
 		background: $panelColour;
-		border-radius: 8px 8px 0 0;
-		color: white;
-		font-size: 16px;
-		border: none;
-		padding: 12px;
+		// background: linear-gradient(#444e58, $panelColour);
 	}
 }
 
@@ -28,12 +46,6 @@
 	border: 1px solid #a3a3a3;
 	color: white;
 
-	//   &-red {
-	// 	@extend .button;
-	// 	background-color: rgb(255, 73, 73);
-	// 	border: 1px solid #d14848;
-	//   }
-
 	&-red {
 		@extend .button;
 		border: 1px solid #ee5757;
@@ -42,7 +54,6 @@
 
 	&-blue {
 		@extend .button;
-		// background-color: rgb(0, 132, 255);
 		border: 1px solid $featureColour;
 		background-color: #0084ff2d;
 	}
@@ -52,19 +63,15 @@ button:focus {
 	outline: none;
 }
 
-.tabButtons {
-	display: flex;
-	align-content: center;
-	justify-content: space-between;
-}
-
 .Collapsible {
 	margin: 8px;
 }
 
 .cryptoItemsContainer {
 	background: $panelColour;
-	border-radius: 4px;
+	border: 1px solid $borderColour;
+	border-top: none;
+	border-radius: 0 0 4px 4px;
 	padding: 4px;
 	margin-top: 0;
 	height: 100%
