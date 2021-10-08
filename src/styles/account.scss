@@ -45,17 +45,26 @@
 	font-size: 16px;
 	border: 1px solid #a3a3a3;
 	color: white;
+	transition: 0.3s;
 
 	&-red {
 		@extend .button;
 		border: 1px solid #ee5757;
 		background-color: #ee57571f;
+
+		&:hover {
+			background-color: #ee57578c;
+		}
 	}
 
 	&-blue {
 		@extend .button;
 		border: 1px solid $featureColour;
 		background-color: #0084ff2d;
+
+		&:hover {
+			background-color: #0084ff86;
+		}
 	}
 }
 
