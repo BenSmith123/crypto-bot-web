@@ -8,6 +8,7 @@ const ENDPOINTS = {
   commands: 'commands',
   currencies: 'currencies', // TODO - this endpoint is renamed in next release
   userConfiguration: 'user/configuration',
+  userTransactions: 'user/transactions',
 };
 
 
@@ -33,6 +34,21 @@ async function getCommands() {
 
 async function getCurrencies() {
   return axios(WEB_API_URL + ENDPOINTS.currencies);
+}
+
+
+async function getUserTransactions(accessToken) {
+
+  throw new Error('Not implemented');
+
+  const reqOptions = {
+    url: WEB_API_URL + ENDPOINTS.userTransaction,
+    headers: {
+      accessToken,
+    },
+  };
+
+  return axios(reqOptions);
 }
 
 
@@ -89,5 +105,6 @@ export {
   getCommands,
   getCurrencies,
   getUserConfiguration,
+  getUserTransactions,
   updateUserConfiguration,
 };

@@ -9,6 +9,7 @@ import {
 import AppContext from '../components/AppContext';
 import Loader from '../components/Loader';
 import ConfigurationContainer from '../components/ConfigurationContainer';
+import TransactionsContainer from '../components/TransactionsContainer';
 
 
 export default function Account(props) {
@@ -59,8 +60,7 @@ export default function Account(props) {
 
               <Route path="/account/transactions">
                 <div className="cryptoItemsContainer">
-                  <p>Page is currently under development :)</p>
-                  <Loader />
+                  <TransactionsContainer userId={config.id} />
                 </div>
               </Route>
             </Switch>
