@@ -125,6 +125,9 @@ export default function App() {
         <div className="sideNav">
 
           <div className="mobileHeader" />
+          {/* option: show header in nav bar for mobile to save space on page */}
+          {/* <h1 style={{ color: '#d3dae1', margin: 0, textAlign: 'center' }}> Account</h1> */}
+
           <Menu
             noTransition // why doesn't this work
             isOpen={!isMobile || menuOpen}
