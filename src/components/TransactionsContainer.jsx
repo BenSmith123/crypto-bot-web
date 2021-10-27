@@ -1,41 +1,57 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import { getUserTransactions } from '../api-interface';
+import AppContext from './AppContext';
 import Loader from './Loader';
 
+import Transaction from './Transaction';
+import { getUserTransactions } from '../api-interface';
 
-export default function TransactionContainer(props) {
+
+export default function TransactionsContainer() {
 
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState(null);
 
-  const { userId } = props;
+  const { accessToken } = useContext(AppContext);
 
   useEffect(async () => {
     try {
-      const res = await getUserTransactions();
-      if (!res.data || !res.data.length) { throw new Error('No transactions found.'); }
+      const res = await getUserTransactions(accessToken);
 
-      setTransactions(res.data);
+      if (!res.data || !res.data.transactions) { throw new Error('No data found.'); }
+
+      setTransactions(res.data.transactions);
     } catch (err) {
       setError(err);
     }
   }, []);
 
-  // TODO
-  //   if (error) {
-  //     return <div>Error: {error.message}</div>;
-  //   }
-
-  if (!error && !transactions.length) {
+  if (!error && !transactions) {
     return <Loader />;
   }
 
+  if (!transactions.length) {
+    return <p>No transactions... YET!</p>;
+  }
+
   return (
-    <>
-      <p>Page is currently under development :)</p>
-      <Loader />
-    </>
+    <div className="transactionsContainer">
+
+      <div>Side</div>
+      <div>Currency</div>
+      <div>Amount</div>
+      <div>Date</div>
+
+
+      {transactions.map((transaction) => (
+        <Transaction
+          key={transaction.orderId}
+          transaction={transaction}
+        />
+      ))}
+
+
+    </div>
   );
 }

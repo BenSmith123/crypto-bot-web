@@ -60,7 +60,7 @@ export default function Account(props) {
 
               <Route path="/account/transactions">
                 <div className="cryptoItemsContainer">
-                  <TransactionsContainer userId={config.id} />
+                  <TransactionsContainer />
                 </div>
               </Route>
             </Switch>
