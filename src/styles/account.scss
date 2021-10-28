@@ -21,6 +21,7 @@
 	padding: 12px;
 	text-decoration: none;
 	border-bottom: 1px solid $borderColour;
+	transition: none;
 
 	&-active {
 		@extend .tabButton;
