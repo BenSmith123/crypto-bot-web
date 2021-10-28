@@ -2,6 +2,8 @@
 import axios from 'axios';
 import { WEB_API_URL } from './environment';
 
+import mockTransactions from './mockTransactions.json';
+
 
 const ENDPOINTS = {
   changelog: 'changelog',
@@ -39,14 +41,14 @@ async function getCurrencies() {
 
 async function getUserTransactions(accessToken) {
 
-  throw new Error('Not implemented');
-
   const reqOptions = {
-    url: WEB_API_URL + ENDPOINTS.userTransaction,
+    url: WEB_API_URL + ENDPOINTS.userTransactions,
     headers: {
       accessToken,
     },
   };
+
+  return { data: { transactions: mockTransactions } };
 
   return axios(reqOptions);
 }
