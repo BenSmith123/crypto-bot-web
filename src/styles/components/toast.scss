@@ -1,0 +1,22 @@
+
+
+.toastMessage {
+	
+	margin-left: 0;
+	background: rgba(0, 0, 0, 0.7) !important;
+	min-width: 240px;
+
+	// move to enter of page (not between nav) on desktop
+	@media (min-width: $mobileWidth) {
+		margin-left: 304px;
+	}
+}
+
+.toastMessage--loading {
+	display: flex !important;
+}
+
+.temp2 {
+	margin: auto;
+  	width: 50%;
+}

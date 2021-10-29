@@ -5,10 +5,13 @@ import React from 'react';
 
 import { withSnackbar } from 'react-simple-snackbar';
 
+import toast from 'react-hot-toast';
 import AppContext from './AppContext';
 import CryptoSelect from './CryptoSelect';
 import CryptoListItem from './CryptoListItem';
 import { Label, LabelGreen } from './Label';
+
+import { Loading } from './Toasts';
 
 import { updateUserConfiguration } from '../api-interface';
 
@@ -24,6 +27,8 @@ class ConfigurationContainer extends React.Component {
     this.state = {
       config: props.config,
     };
+    toast(<Loading text="Saving..." />);
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -84,7 +89,17 @@ class ConfigurationContainer extends React.Component {
 
       openSnackbar('Saving...');
 
+      //   const result = await updateUserConfiguration(accessToken, updatedConfig);
+	  const toastId = toast.loading(<div>hello</div>);
       const result = await updateUserConfiguration(accessToken, updatedConfig);
+      //   toast.promise(result, {
+      //     loading: 'Loading',
+      //     success: 'Got the data',
+      //     error: 'Error when fetching',
+      //   });
+
+	  // toast.dismiss(toastId);
+
 
       if (result.error) {
         openSnackbar(`Error: ${result.errMessage}`);

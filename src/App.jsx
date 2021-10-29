@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Amplify, { Auth } from 'aws-amplify';
 
+import { Toaster } from 'react-hot-toast';
 import { slide as Menu } from 'react-burger-menu';
 import {
   AiOutlineHome,
@@ -243,6 +244,12 @@ export default function App() {
 
       </Router>
 
+      <Toaster
+        toastOptions={{
+          duration: 50000,
+          className: 'toastMessage',
+        }}
+      />
 
     </div>
   );
