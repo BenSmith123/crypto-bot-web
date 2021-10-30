@@ -4,6 +4,9 @@ import React from 'react';
 import moment from 'moment-timezone';
 import Collapsible from 'react-collapsible';
 
+import { LabelBlue, LabelGreen } from './Label';
+import CryptoIcon from './CryptoIcon';
+
 
 export default function Transaction(props) {
   const { transaction } = props;
@@ -18,31 +21,31 @@ export default function Transaction(props) {
 
   return (
     <Collapsible
-      open={false} // TODO
-      trigger={<div>Hello</div>}
+      className="transactionCollapsable"
+      trigger={(
+        <li className="transactionsHeader">
+          <div className="cryptoIconLabel">
+            <CryptoIcon name={instrument_name.replace('_USDT', '')} />
+            <span>{instrument_name.replace('_USDT', '')}</span>
+          </div>
+          <>
+            { side === 'BUY' ? <LabelBlue text={side} /> : <LabelGreen text={side} /> }
+          </>
+          {/* <div>
+            {cumulative_quantity * avg_price}
+          </div> */}
+          <span>
+            {/* {moment(transaction.timestamp).format('DD/MM/YYYY h:mm a')} */}
+            {/* {dateTime.format('DD/MM/YYYY h:mm a')} ({dateTime.fromNow()}) */}
+            { dateTime.fromNow() }
+          </span>
+        </li>
+      )}
       transitionTime={160}
     >
-
-      <>
-        <div>
-          {side}
-        </div>
-        <div>
-          {instrument_name.replace('_USDT', '')}
-        </div>
-        <div>
-          {cumulative_quantity * avg_price}
-        </div>
-        <div>
-
-          {/* {moment(transaction.timestamp).format('DD/MM/YYYY h:mm a')} */}
-          {dateTime.format('DD/MM/YYYY h:mm a')} ({dateTime.fromNow()})
-        </div>
-        {/* <div>
-        {status}
-      </div> */}
-      </>
-
+      <code>
+        {JSON.stringify(transaction, null, 4)}
+      </code>
     </Collapsible>
 
 

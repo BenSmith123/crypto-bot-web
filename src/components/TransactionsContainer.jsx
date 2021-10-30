@@ -36,13 +36,12 @@ export default function TransactionsContainer() {
   }
 
   return (
-    <div className="transactionsContainer">
+    <ul>
 
-      <div>Side</div>
+      {/* <div>Side</div>
       <div>Currency</div>
       <div>Amount</div>
-      <div>Date</div>
-
+      <div>Date</div> */}
 
       {transactions.map((transaction) => (
         <Transaction
@@ -51,7 +50,8 @@ export default function TransactionsContainer() {
         />
       ))}
 
+      <button className="button-blue" type="button">Load more</button>
 
-    </div>
+    </ul>
   );
 }
