@@ -1,7 +1,10 @@
 
 import React from 'react';
 
-export default function Loader() {
+export default function Loader(props) {
+
+  const size = props.size || '200px'; // eslint-disable-line react/destructuring-assignment
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,8 +14,8 @@ export default function Loader() {
         display: 'block',
         shapeRendering: 'auto',
       }}
-      width="200px"
-      height="200px"
+      width={size}
+      height={size}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >

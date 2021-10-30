@@ -3,17 +3,17 @@
 
 import React from 'react';
 
-import { withSnackbar } from 'react-simple-snackbar';
-
+import toast from 'react-hot-toast';
 import AppContext from './AppContext';
 import CryptoSelect from './CryptoSelect';
 import CryptoListItem from './CryptoListItem';
 import { Label, LabelGreen } from './Label';
 
+import { Loading, Error } from './Toasts';
+
 import { updateUserConfiguration } from '../api-interface';
 
 import { CONFIG_ACTIONS } from '../helpers/constants';
-import { SnackbarStyles } from '../styles/components/_inline';
 
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -24,6 +24,7 @@ class ConfigurationContainer extends React.Component {
     this.state = {
       config: props.config,
     };
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -38,8 +39,6 @@ class ConfigurationContainer extends React.Component {
   render() {
 
     const { accessToken } = this.context;
-    const { openSnackbar } = this.props;
-
     const { config } = this.state;
 
     // function to update and publish the config for all action buttons
@@ -82,12 +81,13 @@ class ConfigurationContainer extends React.Component {
 
       // POST to publish config, display pop-up
 
-      openSnackbar('Saving...');
-
+      const toastId = toast(<Loading text="Saving..." />);
       const result = await updateUserConfiguration(accessToken, updatedConfig);
 
+      toast.dismiss(toastId);
+
       if (result.error) {
-        openSnackbar(`Error: ${result.errMessage}`);
+        toast(<Error text={result.errMessage} />);
         return;
       }
 
@@ -95,7 +95,7 @@ class ConfigurationContainer extends React.Component {
 
       this.setState({ config: result });
 
-      openSnackbar('Saved!');
+      toast('Saved!');
     };
 
     const addNewCrypto = (record) => {
@@ -183,4 +183,4 @@ class ConfigurationContainer extends React.Component {
 
 ConfigurationContainer.contextType = AppContext;
 
-export default withSnackbar(ConfigurationContainer, SnackbarStyles);
+export default ConfigurationContainer;

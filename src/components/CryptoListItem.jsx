@@ -1,14 +1,15 @@
 
 import React, { useContext } from 'react';
 
-import { useSnackbar } from 'react-simple-snackbar';
 import Collapsible from 'react-collapsible';
 import { useForm } from 'react-hook-form';
 import Popup from 'reactjs-popup';
+import toast from 'react-hot-toast';
 
 import AppContext from './AppContext';
 import { PopupDialog } from './PopupDialog';
 import CryptoListItemHeader from './CryptoListItemHeader';
+import { Loading, Error } from './Toasts';
 
 import { updateUserConfiguration } from '../api-interface';
 import {
@@ -16,7 +17,6 @@ import {
 } from '../helpers/validations';
 
 import { CONFIG_ACTIONS } from '../helpers/constants';
-import { SnackbarStyles } from '../styles/components/_inline';
 
 
 const popupOptions = {
@@ -29,8 +29,6 @@ const popupOptions = {
 export default function CryptoListItem(props) {
 
   const { config, updateConfig } = props;
-
-  const [openSnackbar] = useSnackbar(SnackbarStyles);
 
   const { accessToken } = useContext(AppContext);
 
@@ -48,18 +46,20 @@ export default function CryptoListItem(props) {
 
   const onSubmit = async (data) => {
 
-    openSnackbar('Saving...');
+    const toastId = toast(<Loading text="Saving..." />);
 
     const results = await updateUserConfiguration(accessToken, data);
 
+    toast.dismiss(toastId);
+
     if (results.error) {
-      openSnackbar(`Error: ${results.errMessage}`);
+      toast(<Error text={results.errMessage} />);
       return;
     }
 
     reset(data); // reset form (sets isDirty false etc.)
 
-    openSnackbar('Saved!');
+    toast('Saved!');
   };
 
   const { recordName } = props;
@@ -279,7 +279,11 @@ export default function CryptoListItem(props) {
               questionDialog
               title="Are you sure?"
               confirmText="Remove"
-              description={`Removing ${recordName} will stop the bot from monitoring/trading in it but will not sell`}
+              description={(
+                <p>Removing <b>{recordName}</b> will stop the bot
+                  from monitoring/trading in it but will not sell
+                </p>
+              )}
               acceptFunc={() => updateConfig(CONFIG_ACTIONS.REMOVE, recordName)}
             />
           )}
