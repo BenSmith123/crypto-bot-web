@@ -103,6 +103,10 @@ button:focus {
 		@extend .cryptoListItemHeader;
 		background-color: $featureColour;
 	}
+
+	span {
+		margin-right: 28px;
+	}
 }
 
 .cryptoItemsButtons {
@@ -217,5 +221,35 @@ input::-webkit-inner-spin-button {
 
 	img {
 		margin-right: 12px;
+	}
+}
+
+// arrow icon & its open/close animation
+.Collapsible__trigger {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	position: relative;
+	color: white;
+
+	&:after {
+	  font-family: 'FontAwesome';
+	  content: '\f107';
+	  position: absolute;
+	  right: 12px;
+	  top: 17px;
+	  display: block;
+	  transition: transform 200ms;
+	}
+  
+	&.is-open {
+	  &:after {
+		transform: rotateZ(180deg);
+	  }
+	}
+  
+	&.is-disabled {
+	  opacity: 0.5;
+	  background-color: grey;
 	}
 }

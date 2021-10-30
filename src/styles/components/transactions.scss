@@ -1,0 +1,41 @@
+
+.transactionsContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    padding: 16px;
+}
+
+.transactionCollapsable {
+    margin: 0;
+    transition: 0.2s;
+
+    &:hover {
+        border-radius: 8px;
+        background-color: #f5f5f527;
+    }
+
+    .Collapsible__trigger:after {
+        top: 22px;
+    }
+}
+
+.transactionsHeader {
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+    padding: 12px;
+    margin: 0;
+
+    // div {
+    //     width: 48px;
+    // }
+
+	span {
+        min-width: 48px;
+		margin-right: 24px;
+	}
+}
+
+
