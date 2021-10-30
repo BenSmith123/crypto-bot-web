@@ -4,7 +4,13 @@
 	
 	margin-left: 0;
 	background: rgba(0, 0, 0, 0.7) !important;
-	min-width: 240px;
+	min-width: 256px;
+	padding: 0 !important;
+	color: white !important;
+	font-size: 16px;
+	display: flex !important;
+	height: 48px;
+
 
 	// move to enter of page (not between nav) on desktop
 	@media (min-width: $mobileWidth) {
@@ -14,6 +20,11 @@
 
 .toastMessage--loading {
 	display: flex !important;
+	width: 100%;
+
+	svg {
+		margin: auto 20% auto 0 !important;
+	}
 }
 
 .temp2 {

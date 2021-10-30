@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SnackbarProvider from 'react-simple-snackbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Amplify, { Auth } from 'aws-amplify';
@@ -211,32 +210,28 @@ export default function App() {
           }}
           >
 
-            <SnackbarProvider>
+            <Switch>
+              <Route path="/account">
+                <Account config={apiUserConfig} />
+              </Route>
 
-              <Switch>
-                <Route path="/account">
-                  <Account config={apiUserConfig} />
-                </Route>
+              <Route path="/crypto-assistant">
+                <Commands apiCommands={apiCommands} />
+              </Route>
 
-                <Route path="/crypto-assistant">
-                  <Commands apiCommands={apiCommands} />
-                </Route>
+              <Route path="/changelog">
+                <Changelog apiChangelog={apiChangelog} />
+              </Route>
 
-                <Route path="/changelog">
-                  <Changelog apiChangelog={apiChangelog} />
-                </Route>
+              <Route path="/signin">
+                <Signin setUser={handleUserLogin} userSession={userSession} />
+              </Route>
 
-                <Route path="/signin">
-                  <Signin setUser={handleUserLogin} userSession={userSession} />
-                </Route>
-
-                <Route path="/">
-                  {/* TODO */}
-                  <Topics />
-                </Route>
-              </Switch>
-
-            </SnackbarProvider>
+              <Route path="/">
+                {/* TODO */}
+                <Topics />
+              </Route>
+            </Switch>
 
           </AppContext.Provider>
 
@@ -246,7 +241,7 @@ export default function App() {
 
       <Toaster
         toastOptions={{
-          duration: 50000,
+          duration: 5000,
           className: 'toastMessage',
         }}
       />
