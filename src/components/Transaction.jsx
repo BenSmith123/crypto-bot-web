@@ -6,14 +6,13 @@ import Collapsible from 'react-collapsible';
 
 import { LabelBlue, LabelGreen } from './Label';
 import CryptoIcon from './CryptoIcon';
+import TransactionDetails from './TransactionDetails';
 
 
 export default function Transaction(props) {
   const { transaction } = props;
   const {
     side,
-    cumulative_quantity,
-    avg_price,
     instrument_name,
   } = transaction.order_info;
 
@@ -43,9 +42,7 @@ export default function Transaction(props) {
       )}
       transitionTime={160}
     >
-      <code>
-        {JSON.stringify(transaction, null, 4)}
-      </code>
+      <TransactionDetails transaction={transaction} />
     </Collapsible>
 
 
