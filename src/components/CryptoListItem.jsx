@@ -25,8 +25,6 @@ const popupOptions = {
   nested: true,
 };
 
-const notify = () => toast('Here is your toast.');
-
 
 export default function CryptoListItem(props) {
 
