@@ -148,28 +148,28 @@ export default function App() {
               title="Home"
               link="/"
               icon={<AiOutlineHome className="icon" />}
-              onClick={navItemSelected}
+              onClick={() => navItemSelected()}
             />
 
             <NavItem
               title="Account"
               link="/account"
               icon={<AiOutlineUser className="icon" />}
-              onClick={navItemSelected}
+              onClick={() => navItemSelected()}
             />
 
             <NavItem
               title="Crypto Assistant"
               link="/crypto-assistant"
               icon={<AiOutlineSmile className="icon" />}
-              onClick={navItemSelected}
+              onClick={() => navItemSelected()}
             />
 
             <NavItem
               title="Changelog"
               link="/changelog"
               icon={<AiOutlineMenuUnfold className="icon" />}
-              onClick={navItemSelected}
+              onClick={() => navItemSelected()}
             />
 
             {/* <NavItem
@@ -184,14 +184,14 @@ export default function App() {
                 title="Sign out"
                 link="/signin"
                 icon={<AiOutlineLogout className="icon" />}
-                onClick={handleSignout}
+                onClick={() => handleSignout()}
               />
             ) : (
               <NavItem
                 title="Sign in"
                 link="/signin"
                 icon={<AiOutlineLogin className="icon" />}
-                onClick={navItemSelected}
+                onClick={() => navItemSelected()}
               />
             )}
 
