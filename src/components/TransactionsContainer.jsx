@@ -38,11 +38,6 @@ export default function TransactionsContainer() {
   return (
     <ul>
 
-      {/* <div>Side</div>
-      <div>Currency</div>
-      <div>Amount</div>
-      <div>Date</div> */}
-
       {transactions.map((transaction) => (
         <Transaction
           key={transaction.orderId}

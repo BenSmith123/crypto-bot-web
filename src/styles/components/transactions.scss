@@ -9,11 +9,14 @@
 .transactionCollapsable {
     margin: 0;
     transition: 0.2s;
+    border-radius: 8px;
 
-    &:hover {
-        border-radius: 8px;
-        background-color: #f5f5f527;
-    }
+    // only hover on desktop
+    @media (min-width: $mobileWidth) {
+        &:hover {
+            background-color: #f5f5f527;
+        }
+	}
 
     .Collapsible__trigger:after {
         top: 22px;
@@ -39,11 +42,26 @@
 }
 
 .transactionDetails {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.transactionList {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: space-around;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.062);
-}
+    padding: 0 32px;
 
+    div  {
+        padding: 8px;
+    }
+
+    .listLeft {
+        text-align: left;
+    }
+    
+    .listRight {
+        text-align: right;
+    }
+}

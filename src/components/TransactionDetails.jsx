@@ -2,69 +2,93 @@
 
 import React from 'react';
 
+import moment from 'moment-timezone';
+
+
 export default function TransactionDetails(props) {
 
   const { transaction } = props;
-  const { status, order_info } = transaction;
+  const {
+    orderId, status, order_info, trade_list,
+  } = transaction;
 
   const {
     instrument_name,
     avg_price,
     side,
-    quantity,
+    cumulative_quantity,
+    create_time,
+    update_time,
+    cumulative_value,
+    type,
   } = order_info;
 
-  const isBuy = side === 'BUY';
+  const currencyCode = instrument_name.replace('_USDT', '');
+
+  const dateTime = moment(create_time);
+
 
   return (
     <div className="transactionDetails">
-      <div>Name</div>{instrument_name}
-      <div>Status</div>{status}
-      <div>Quantity</div>{isBuy
-        ? quantity / avg_price
-        : (quantity * avg_price).toFixed(2)}
 
-      <code>
-        {JSON.stringify(transaction, null, 4)}
-      </code>
+      <h3>Order {orderId}</h3>
+      <hr />
+
+      <div className="transactionList">
+
+        {/* list of labels */}
+        <ul className="listLeft">
+
+          <li>Name</li>
+          <li>Side</li>
+          <li>Quantity</li>
+          <li>Average price</li>
+          <li>Value</li>
+
+          <hr />
+
+          <li>Create time</li>
+          <li>Update time</li>
+
+          <li>Status</li>
+          <li>Type</li>
+
+          <hr />
+
+          <pre>
+            <code>{JSON.stringify({ ...order_info }, null, 2).replace(/"|,|\[|\]|\{|\}/g, '')}</code>
+          </pre>
+
+        </ul>
+
+        {/* list of data */}
+        <ul className="listRight">
+
+          <li>{instrument_name}</li>
+          <li>{side}</li>
+          <li>{cumulative_quantity + currencyCode}</li>
+          <li>{`$${avg_price} USD`}</li>
+          <li>${cumulative_value.toFixed(2)} USD</li>
+
+          <hr />
+          <li>{dateTime.format('DD/MM/YYYY h:mm:ss a')} ({dateTime.fromNow()})</li>
+          <li>{update_time - create_time}ms</li>
+
+          <li>{status}</li>
+          <li>{type}</li>
+
+          <hr />
+
+          <pre>
+            <code>{JSON.stringify({ trade_list }, null, 2).replace(/"|,|\[|\]|\{|\}/g, '')}</code>
+          </pre>
+
+
+        </ul>
+
+      </div>
+
+
     </div>
   );
 }
-
-
-// status: string,
-// timestamp: number,
-// user: string,
-// order_info: {
-//     side: 'SELL' | 'BUY',
-//     cumulative_quantity: number,
-//     quantity: number,
-//     create_time: number,
-//     fee_currency: string,
-//     avg_price: number,
-//     exec_inst: 'POST_ONLY' | '',
-//     client_oid: string,
-//     type: 'LIMIT' | 'MARKET' | 'STOP_LOSS' | 'STOP_LIMIT',
-//     update_time: number,
-//     time_in_force: 'GOOD_TILL_CANCEL' | 'IMMEDIATE_OR_CANCEL' | 'FILL_OR_KILL',
-//     instrument_name: string,
-//     price: number,
-//     cumulative_value: number,
-//     order_id: string,
-//     status: 'ACTIVE' | 'CANCELED' | 'FILLED' | 'REJECTED' | 'EXPIRED'
-// },
-// trade_list: [
-//     {
-//         liquidity_indicator: 'MAKER' | 'TAKER',
-//         side: 'SELL' | 'BUY',
-//         trade_id: string,
-//         create_time: number,
-//         instrument_name: 'SUSHI_USDT',
-//         fee: number,
-//         fee_currency: string,
-//         traded_quantity: number,
-//         client_oid: string,
-//         traded_price: number,
-//         order_id: string
-//     }
-// ]
