@@ -22,8 +22,9 @@ const sections = [
         </p>
         <p>
           This strategy relies heavily on the crypto currency price fluctuations,
-          as opposed to buying and holding or relying on technical indicators
-          can also be used as a smarter way of investing and holding.
+          as opposed to a buying and holding strategy or relying on technical indicators
+          - potentially securing profit regardless of the actual crypto currency value.
+          In a bearish market the bot can also be utilised to prevent losses.
         </p>
       </>
     ),
@@ -46,11 +47,13 @@ const sections = [
           <br />
           <br />
 
-          You can configure your bot via the
+          You can configure your bot via your
           {' '}
-          <Link to="/crypto-assistant">Discord slash commands</Link>
+          <Link to="/account">Account</Link>
           {' '}
-          (and soon via the web).
+          or using the
+          {' '}
+          <Link to="/crypto-assistant">Discord slash commands.</Link>
         </p>
       </>
     ),
@@ -69,12 +72,19 @@ const sections = [
   {
     id: 'features',
     title: 'Features',
-    content: 'sdgsdgs',
+    content: (
+      <ul className="liDotted">
+        <li>24/7 monitoring (running every 15 minutes)</li>
+        <li>Logging to Discord of every decision/transaction</li>
+        <li>Warning/alert notifications</li>
+        <li>170+ supported crypto currencies</li>
+      </ul>
+    ),
   },
   {
     id: 'examples',
     title: 'Examples',
-    content: 'gsdgs',
+    content: 'TO DO',
   },
 ];
 

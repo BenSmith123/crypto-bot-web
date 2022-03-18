@@ -14,6 +14,8 @@
 
 
 ### TODO
+- "Live demo" examples for users not logged in
+- Graphs on the homepage explaining the bot more
 - Cryptobot favicon/images
 - Meta tags & images & SEO
 - Prevent desktop navbar from sliding in
