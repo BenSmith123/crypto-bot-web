@@ -183,111 +183,115 @@ export default function CryptoListItem(props) {
 
         {/* BUTTONS */}
 
+        <div className="editCryptoButtonContainer">
 
-        <button
-          type="submit"
-          disabled={!isDirty || !isValid}
-          className={isDirty && isValid ? 'button-blue' : 'button'}
-        >
-          Save
-        </button>
 
-        {isHolding ? (
-          <Popup
-            {...popupOptions}
-            trigger={(<button type="button" className="button-red">Sell</button>)}
+          <button
+            type="submit"
+            disabled={!isDirty || !isValid}
+            className={isDirty && isValid ? 'button-blue' : 'button'}
           >
-            {(close) => (
-              <PopupDialog
-                close={close}
-                questionDialog
-                title="Are you sure?"
-                confirmText="Sell"
-                description={(
-                  <>
-                    <p>The bot will sell your <b>{recordName}</b> when it is next run.</p>
-                    <p>
-                      The bot will keep record of the sell price and continue to
-                      monitor <b>{recordName}</b> and buy back in when the buy percentage is met.
-                    </p>
-                  </>
+            Save
+          </button>
+
+          {isHolding ? (
+            <Popup
+              {...popupOptions}
+              trigger={(<button type="button" className="button-red">Sell</button>)}
+            >
+              {(close) => (
+                <PopupDialog
+                  close={close}
+                  questionDialog
+                  title="Are you sure?"
+                  confirmText="Sell"
+                  description={(
+                    <>
+                      <p>The bot will sell your <b>{recordName}</b> when it is next run.</p>
+                      <p>
+                        The bot will keep record of the sell price and continue to
+                        monitor <b>{recordName}</b> and buy back in when the buy percentage is met.
+                      </p>
+                    </>
                 )}
-                acceptFunc={() => updateConfig(CONFIG_ACTIONS.SELL, recordName)}
-              />
-            )}
-          </Popup>
-        ) : (
-          <Popup
-            {...popupOptions}
-            trigger={(<button type="button" className="button-red">Buy</button>)}
-          >
-            {(close) => (
-              <PopupDialog
-                close={close}
-                questionDialog
-                title="Are you sure?"
-                confirmText="Buy"
-                description={(<p>The bot will buy <b>{recordName}</b> when it is next run.</p>)}
-                acceptFunc={() => updateConfig(CONFIG_ACTIONS.BUY, recordName)}
-              />
-            )}
-          </Popup>
-        )}
-
-        {isPaused ? (
-          <Popup
-            {...popupOptions}
-            trigger={(<button type="button" className="button-red">Unpause</button>)}
-          >
-            {(close) => (
-              <PopupDialog
-                close={close}
-                questionDialog
-                title="Are you sure?"
-                confirmText="Unpause"
-                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => updateConfig(CONFIG_ACTIONS.UNPAUSE, recordName)}
-              />
-            )}
-          </Popup>
-        ) : (
-          <Popup
-            {...popupOptions}
-            trigger={(<button type="button" className="button-blue">Pause</button>)}
-          >
-            {(close) => (
-              <PopupDialog
-                close={close}
-                questionDialog
-                title="Are you sure?"
-                confirmText="Pause"
-                description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
-                acceptFunc={() => updateConfig(CONFIG_ACTIONS.PAUSE, recordName)}
-              />
-            )}
-          </Popup>
-        )}
-
-
-        <Popup
-          {...popupOptions}
-          trigger={(<button type="button" className="button-blue">Remove</button>)}
-        >
-          {(close) => (
-            <PopupDialog
-              close={close}
-              questionDialog
-              title="Are you sure?"
-              confirmText="Remove"
-              description={(
-                <p>Removing <b>{recordName}</b> will stop the bot
-                  from monitoring/trading in it but will not sell
-                </p>
+                  acceptFunc={() => updateConfig(CONFIG_ACTIONS.SELL, recordName)}
+                />
               )}
-              acceptFunc={() => updateConfig(CONFIG_ACTIONS.REMOVE, recordName)}
-            />
+            </Popup>
+          ) : (
+            <Popup
+              {...popupOptions}
+              trigger={(<button type="button" className="button-red">Buy</button>)}
+            >
+              {(close) => (
+                <PopupDialog
+                  close={close}
+                  questionDialog
+                  title="Are you sure?"
+                  confirmText="Buy"
+                  description={(<p>The bot will buy <b>{recordName}</b> when it is next run.</p>)}
+                  acceptFunc={() => updateConfig(CONFIG_ACTIONS.BUY, recordName)}
+                />
+              )}
+            </Popup>
           )}
-        </Popup>
+
+          {isPaused ? (
+            <Popup
+              {...popupOptions}
+              trigger={(<button type="button" className="button-red">Unpause</button>)}
+            >
+              {(close) => (
+                <PopupDialog
+                  close={close}
+                  questionDialog
+                  title="Are you sure?"
+                  confirmText="Unpause"
+                  description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
+                  acceptFunc={() => updateConfig(CONFIG_ACTIONS.UNPAUSE, recordName)}
+                />
+              )}
+            </Popup>
+          ) : (
+            <Popup
+              {...popupOptions}
+              trigger={(<button type="button" className="button-blue">Pause</button>)}
+            >
+              {(close) => (
+                <PopupDialog
+                  close={close}
+                  questionDialog
+                  title="Are you sure?"
+                  confirmText="Pause"
+                  description={`Pausing ${recordName} will prevent the bot from making any further transactions`}
+                  acceptFunc={() => updateConfig(CONFIG_ACTIONS.PAUSE, recordName)}
+                />
+              )}
+            </Popup>
+          )}
+
+
+          <Popup
+            {...popupOptions}
+            trigger={(<button type="button" className="button-blue">Remove</button>)}
+          >
+            {(close) => (
+              <PopupDialog
+                close={close}
+                questionDialog
+                title="Are you sure?"
+                confirmText="Remove"
+                description={(
+                  <p>Removing <b>{recordName}</b> will stop the bot
+                    from monitoring/trading in it but will not sell
+                  </p>
+              )}
+                acceptFunc={() => updateConfig(CONFIG_ACTIONS.REMOVE, recordName)}
+              />
+            )}
+          </Popup>
+
+        </div>
 
       </form>
 
