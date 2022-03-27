@@ -140,15 +140,6 @@ class ConfigurationContainer extends React.Component {
           <div>Monitored currencies: {Object.keys(config.records).length}</div>
           <div>Estimate total funds: $... USD ($... NZD)</div>
 
-          {Object.keys(config.records).map((record) => (
-            <CryptoListItem
-              key={record}
-              recordName={record}
-              config={config}
-              updateConfig={updateConfig}
-            />
-          ))}
-
           <div className="cryptoItemsButtons">
 
             {config.isPaused ? (
@@ -174,6 +165,15 @@ class ConfigurationContainer extends React.Component {
             <CryptoSelect addNewCrypto={addNewCrypto} />
 
           </div>
+
+          {Object.keys(config.records).map((record) => (
+            <CryptoListItem
+              key={record}
+              recordName={record}
+              config={config}
+              updateConfig={updateConfig}
+            />
+          ))}
 
         </ul>
       </>
